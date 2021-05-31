@@ -13,12 +13,18 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="button">
         <item name="backgroundTint">@color/amaranth</item>
         <item name="android:textColor">@color/antiFlashWhite</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:padding">5dp</item>
         <item name="cornerRadius">10dp</item>
         <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="text_color">
+        <item name="android:textColor">@color/antiFlashWhite</item>
     </style>
 
 </resources>

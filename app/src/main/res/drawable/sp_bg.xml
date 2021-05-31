@@ -3,7 +3,7 @@
 
         <gradient
             android:angle="270"
-            android:startColor="#23E5F1"
+            android:startColor="@color/project_status_bar"
             android:endColor="#FFFFFF"/>
 <!--    gradiantBackStart-->
 </shape>

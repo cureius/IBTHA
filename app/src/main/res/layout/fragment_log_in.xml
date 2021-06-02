@@ -64,9 +64,10 @@
                         android:hint="@string/email_login_hint">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/email_log_in"
                             android:layout_width="match_parent"
-                            android:inputType="textEmailAddress"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,6 +80,7 @@
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/password_log_in"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword" />
@@ -97,7 +99,7 @@
                         tools:ignore="RtlHardcoded" />
 
                     <Button
-                        android:id="@+id/creat_account_btn"
+                        android:id="@+id/log_in"
                         style="@style/button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -109,6 +111,7 @@
                         android:textColor="#fff" />
 
                     <Button
+                        android:id="@+id/go_create_account"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

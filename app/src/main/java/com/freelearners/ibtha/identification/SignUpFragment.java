@@ -41,8 +41,6 @@ public class SignUpFragment extends Fragment {
         init(view);
 
         goLogInBtn.setOnClickListener(v -> ((IdentificationActivity) requireActivity()).setFragment(new LogInFragment()));
-
-
         signupByFacebook.setOnClickListener(v -> Toast.makeText(getContext(), "Log in with Facebook", Toast.LENGTH_SHORT).show());
         signupByGoogle.setOnClickListener(v -> Toast.makeText(getContext(), "Log in with Google", Toast.LENGTH_SHORT).show());
 
@@ -86,7 +84,7 @@ public class SignUpFragment extends Fragment {
     }
 
     private void createAccount(String name, String email, String password) {
-        ((IdentificationActivity) requireActivity()).SIGNUP(name, email, password);
+        ((IdentificationActivity) requireActivity()).signupRequest(name, email, password,"/api/signup");
     }
 
     private void init(View view){

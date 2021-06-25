@@ -71,9 +71,7 @@ public class LogInFragment extends Fragment {
     }
 
     private void logIn(EditText email, EditText password) {
-//        Toast.makeText(getContext(), "login" + email+password, Toast.LENGTH_SHORT).show();
-        ((IdentificationActivity) requireActivity()).LOGIN(email.getText().toString() , password.getText().toString());
-        ((IdentificationActivity) requireActivity()).loginWithVolley(email.getText().toString() , password.getText().toString(), "/api/signin");
+        ((IdentificationActivity) requireActivity()).loginRequest(email.getText().toString() , password.getText().toString(), "/api/signin");
     }
 
     private void init(View view){

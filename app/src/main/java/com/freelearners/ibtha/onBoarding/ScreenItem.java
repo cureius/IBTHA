@@ -1,4 +1,4 @@
-package com.freelearners.ibtha.onboarding;
+package com.freelearners.ibtha.onBoarding;
 
 public class ScreenItem {
 

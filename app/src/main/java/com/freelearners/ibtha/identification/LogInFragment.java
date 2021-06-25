@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.freelearners.ibtha.R;
@@ -24,7 +25,8 @@ public class LogInFragment extends Fragment {
     }
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     private EditText email , password  ;
-    private Button goCreateAccountBtn ,logInBtn;
+    private Button logInBtn, logInByFaceBook, logInByGoogle;
+    private LinearLayout goSignup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +41,10 @@ public class LogInFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         init(view);
 
-        goCreateAccountBtn.setOnClickListener(v -> ((IdentificationActivity) requireActivity()).setFragment(new SignUpFragment()));
+        goSignup.setOnClickListener(v -> ((IdentificationActivity) requireActivity()).setFragment(new SignUpFragment()));
+
+        logInByFaceBook.setOnClickListener(v -> Toast.makeText(getContext(), "Log in with Facebook", Toast.LENGTH_SHORT).show());
+        logInByGoogle.setOnClickListener(v -> Toast.makeText(getContext(), "Log in with Google", Toast.LENGTH_SHORT).show());
 
         logInBtn.setOnClickListener(v -> {
 
@@ -66,9 +71,9 @@ public class LogInFragment extends Fragment {
     }
 
     private void logIn(EditText email, EditText password) {
-        Toast.makeText(getContext(), "login" + email+password, Toast.LENGTH_SHORT).show();
-
+//        Toast.makeText(getContext(), "login" + email+password, Toast.LENGTH_SHORT).show();
         ((IdentificationActivity) requireActivity()).LOGIN(email.getText().toString() , password.getText().toString());
+        ((IdentificationActivity) requireActivity()).loginWithVolley(email.getText().toString() , password.getText().toString(), "/api/signin");
     }
 
     private void init(View view){
@@ -76,8 +81,10 @@ public class LogInFragment extends Fragment {
         email=view.findViewById(R.id.email_log_in);
         password=view.findViewById(R.id.password_log_in);
 //        progressBar=view.findViewById(R.id.progressBar);
-        goCreateAccountBtn=view.findViewById(R.id.go_create_account);
+        goSignup=view.findViewById(R.id.go_signup_tv_view);
         logInBtn=view.findViewById(R.id.log_in);
+        logInByFaceBook=view.findViewById(R.id.login_facebook_btn);
+        logInByGoogle=view.findViewById(R.id.login_google_btn);
 
     }
 }

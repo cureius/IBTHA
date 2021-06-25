@@ -1,4 +1,4 @@
-package com.freelearners.ibtha.onboarding;
+package com.freelearners.ibtha.onBoarding;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

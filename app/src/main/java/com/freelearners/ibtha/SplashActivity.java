@@ -1,5 +1,6 @@
 package com.freelearners.ibtha;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,13 +10,14 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.freelearners.ibtha.onboarding.IntroActivity;
+import com.freelearners.ibtha.onBoarding.IntroActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
     Animation topAnim , bottomAnim;
     ImageView logo , name;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
         logo.setAnimation(topAnim);
         name.setAnimation(bottomAnim);
 
-        int SPLASH_SCREEN = 4000;
+        int SPLASH_SCREEN = 3000;
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(SplashActivity.this , IntroActivity.class);
             startActivity(intent);

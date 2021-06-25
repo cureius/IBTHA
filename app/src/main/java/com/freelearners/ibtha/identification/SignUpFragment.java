@@ -1,12 +1,13 @@
 package com.freelearners.ibtha.identification;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,8 +23,9 @@ public class SignUpFragment extends Fragment {
         // Required empty public constructor
     }
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-    private EditText email , phone , password , confirmPassword ;
-    private Button createAccountBtn ,goLogInBtn;
+    private EditText name, email, password , confirmPassword ;
+    private Button createAccountBtn, signupByFacebook, signupByGoogle ;
+    private LinearLayout goLogInBtn ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,17 +42,22 @@ public class SignUpFragment extends Fragment {
 
         goLogInBtn.setOnClickListener(v -> ((IdentificationActivity) requireActivity()).setFragment(new LogInFragment()));
 
+
+        signupByFacebook.setOnClickListener(v -> Toast.makeText(getContext(), "Log in with Facebook", Toast.LENGTH_SHORT).show());
+        signupByGoogle.setOnClickListener(v -> Toast.makeText(getContext(), "Log in with Google", Toast.LENGTH_SHORT).show());
+
         createAccountBtn.setOnClickListener(v -> {
+            name.setError(null);
+//            lastName.setError(null);
             email.setError(null);
-            phone.setError(null);
             password.setError(null);
             confirmPassword.setError(null);
-            if(email.getText().toString().isEmpty()){
-                email.setError("Required");
+            if(name.getText().toString().isEmpty()){
+                name.setError("Required");
                 return;
             }
-            if(phone.getText().toString().isEmpty()){
-                phone.setError("Required");
+            if(email.getText().toString().isEmpty()){
+                email.setError("Required");
                 return;
             }
             if(password.getText().toString().isEmpty()){
@@ -65,10 +72,6 @@ public class SignUpFragment extends Fragment {
                 email.setError("Please enter a valid Email");
                 return;
             }
-            if(phone.getText().toString().length() != 10){
-                phone.setError("Please enter a valid phone number");
-                return;
-            }
             if(password.getText().toString().length() < 6){
                 password.setError("Please enter a password longer than 6 character ");
                 return;
@@ -78,26 +81,25 @@ public class SignUpFragment extends Fragment {
                 return;
             }
 
-            createAccount(email , password , phone);
+            createAccount(name.getText().toString(), email.getText().toString(), password.getText().toString());
         });
     }
 
-    private void createAccount(EditText email, EditText password, EditText phone) {
-
-        String error = "error";
-        Log.d(error, "createAccount: " + email.getText().toString() + password.getText().toString() + phone.getText().toString()  );
-        ((IdentificationActivity) requireActivity()).SIGNUP(email.getText().toString() , phone.getText().toString() ,password.getText().toString());
+    private void createAccount(String name, String email, String password) {
+        ((IdentificationActivity) requireActivity()).SIGNUP(name, email, password);
     }
 
     private void init(View view){
 
+        name=view.findViewById(R.id.name_sign_up);
         email=view.findViewById(R.id.email_sign_up);
-        phone=view.findViewById(R.id.phone_sign_up);
         password=view.findViewById(R.id.password_sign_up);
         confirmPassword=view.findViewById(R.id.confirm_password_sign_up);
 //        progressBar=view.findViewById(R.id.progressBar);
-        createAccountBtn=view.findViewById(R.id.sign_up_button);
-        goLogInBtn=view.findViewById(R.id.go_to_log_in_bt);
+        createAccountBtn=view.findViewById(R.id.sign_up);
+        goLogInBtn=view.findViewById(R.id.go_login);
+        signupByFacebook=view.findViewById(R.id.signup_facebook_btn);
+        signupByGoogle=view.findViewById(R.id.signup_google_btn);
 
     }
 

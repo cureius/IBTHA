@@ -13,15 +13,16 @@
         android:theme="@style/Theme.IBTHA"
         tools:targetApi="23">
 
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".onboarding.IntroActivity"/>
+        <activity android:name=".onBoarding.IntroActivity"/>
         <activity android:name=".identification.IdentificationActivity"/>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".home.MainActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

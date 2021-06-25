@@ -45,6 +45,10 @@
     <color name="powderBlue">#8FA4AD</color>
     <color name="safetyOrange">#FF9F00</color>
     <color name="robinEggBlue">#11C5E0</color>
+    <color name="blueGray">#404e5a</color>
+    <color name="blueGrayVariant">#37474f</color>
+
+    <color name="projectLightPrimary">#54B175</color>
 
     <color name="gradient_start_color">#4c84ff</color>
     <color name="gradient_end_color">#18a3fe</color>

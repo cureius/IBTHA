@@ -1,8 +1,10 @@
-package com.freelearners.ibtha;
+package com.freelearners.ibtha.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.freelearners.ibtha.R;
 
 public class MainActivity extends AppCompatActivity {
 

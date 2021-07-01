@@ -2,14 +2,17 @@ package com.freelearners.ibtha;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.freelearners.ibtha.home.MainActivity;
 import com.freelearners.ibtha.onBoarding.IntroActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -35,11 +38,26 @@ public class SplashActivity extends AppCompatActivity {
         logo.setAnimation(topAnim);
         name.setAnimation(bottomAnim);
 
+
         int SPLASH_SCREEN = 3000;
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this , IntroActivity.class);
-            startActivity(intent);
+            SharedPreferences getSharedPreferences = getSharedPreferences("identification", MODE_PRIVATE);
+            boolean loggedIn = getSharedPreferences.getBoolean("identified", false);
+
+
+            if (loggedIn){
+                Toast.makeText(SplashActivity.this, "loggedIn", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SplashActivity.this , MainActivity.class);
+                startActivity(intent);
+
+            }else {
+                Intent intent = new Intent(SplashActivity.this , IntroActivity.class);
+                startActivity(intent);
+            }
             finish();
+
         }, SPLASH_SCREEN);
+
+
     }
 }

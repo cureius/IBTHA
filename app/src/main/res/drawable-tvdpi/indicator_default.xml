@@ -3,21 +3,16 @@
 
     <item>
 
-        <shape android:shape="ring"
-                android:innerRadius="0dp"
-                android:thickness="4dp"
-                android:useLevel="false">
+        <shape
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:thickness="4dp"
+            android:useLevel="false">
 
             <solid android:color="@color/tab_indicator_gray" />
 
-
-
         </shape>
 
-
-
     </item>
-
-
 
 </layer-list>

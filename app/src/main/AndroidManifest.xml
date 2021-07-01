@@ -4,6 +4,7 @@
     package="com.freelearners.ibtha">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,14 +14,17 @@
         android:theme="@style/Theme.IBTHA"
         android:usesCleartextTraffic="true"
         tools:targetApi="23">
+        <activity android:name=".home.marketPlace.ProductActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".onBoarding.IntroActivity" />
         <activity android:name=".identification.IdentificationActivity" />

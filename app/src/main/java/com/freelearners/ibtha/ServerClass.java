@@ -12,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ServerClass {
@@ -23,20 +24,14 @@ public class ServerClass {
                 Request.Method.POST,
                 URL,
                 jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d(TAG, "onResponse: " + response.toString());
-                        serverResponseCallback.onJSONResponse(response);
+                response -> {
+                    Log.d(TAG, "onResponse: " + response.toString());
+                    serverResponseCallback.onJSONResponse(response);
 
-                    }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "onErrorResponse: ", error);
-                        serverResponseCallback.onError(error);
-                    }
+                error -> {
+                    Log.e(TAG, "onErrorResponse: ", error);
+                    serverResponseCallback.onError(error);
                 }
         );
         requestQueue.add(jsonObjectRequest);
@@ -48,20 +43,40 @@ public class ServerClass {
                 Request.Method.GET,
                 URL,
                 null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, "onResponse: " + response.toString());
+                response -> {
+                    Log.d(TAG, "onResponse: " + response.toString());
+                    try {
                         serverResponseCallback.onJSONArrayResponse(response);
+                    } catch (JSONException jsonException) {
+                        jsonException.printStackTrace();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "onErrorResponse: ", error);
-                        serverResponseCallback.onError(error);
+                error -> {
+                    Log.e(TAG, "onErrorResponse: ", error);
+                    serverResponseCallback.onError(error);
 
+                }
+        );
+        requestQueue.add(jsonArrayRequest);
+    }
+    public void sendPOSTArrayRequestToServer(Context context, String URL, final ServerResponseCallback serverResponseCallback) {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.POST,
+                URL,
+                null,
+                response -> {
+                    Log.d(TAG, "onResponse: sendPOSTArrayRequestToServer" + response.toString());
+                    try {
+                        serverResponseCallback.onJSONArrayResponse(response);
+                    } catch (JSONException jsonException) {
+                        jsonException.printStackTrace();
                     }
+                },
+                error -> {
+                    Log.e(TAG, "onErrorResponse: ", error);
+                    serverResponseCallback.onError(error);
+
                 }
         );
         requestQueue.add(jsonArrayRequest);

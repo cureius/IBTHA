@@ -35,4 +35,6 @@
     <string name="create_password">Create Password</string>
     <string name="have_an_account">Have an account?</string>
     <string name="login">Login</string>
+    <string name="main_page_selected">%s page is selected</string>
+    <string name="unit_gm">100gm</string>
 </resources>

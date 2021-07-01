@@ -1,6 +1,7 @@
 package com.freelearners.ibtha.identification;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.FrameLayout;
@@ -84,6 +85,12 @@ public class IdentificationActivity extends AppCompatActivity {
                     public void onJSONResponse(JSONObject jsonObject) {
                         Log.d(TAG, "onJSONResponse: " + jsonObject.toString());
                         Toast.makeText(IdentificationActivity.this, " Logged in Successfully", Toast.LENGTH_SHORT).show();
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("identification", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("identified", true);
+                        editor.apply();
+//                        editor.commit();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -106,7 +113,8 @@ public class IdentificationActivity extends AppCompatActivity {
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("name", name);
+            jsonObject.put("firstName", name);
+            jsonObject.put("lastName", name);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
         } catch (JSONException je) {
@@ -121,6 +129,12 @@ public class IdentificationActivity extends AppCompatActivity {
                     public void onJSONResponse(JSONObject jsonObject) {
                         Log.d(TAG, "onJSONResponse: " + jsonObject.toString());
                         Toast.makeText(IdentificationActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("identification", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("identified", true);
+                        editor.apply();
+
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         finish();

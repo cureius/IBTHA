@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.marketPlace.ProductActivity">
+    tools:context=".views.ui.ProductActivity">
 
     <include
         android:id="@+id/include"
@@ -23,7 +23,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
 
             <include
                 layout="@layout/product_images_layout"
@@ -33,7 +34,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -47,14 +49,15 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/cardView3"
                     app:layout_constraintStart_toStartOf="@+id/cardView3"
-                    app:layout_constraintTop_toTopOf="@+id/cardView3"></LinearLayout>
+                    app:layout_constraintTop_toTopOf="@+id/cardView3" />
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/unitPlusBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="18dp"
                     android:background="@drawable/button_bg"
+                    android:contentDescription="@string/default_description"
                     android:padding="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -62,19 +65,20 @@
                     app:srcCompat="@drawable/ic_baseline_add_24" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/unitMinusBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/button_bg"
+                    android:contentDescription="@string/default_description"
                     android:padding="5dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView11"
-                    app:layout_constraintEnd_toStartOf="@+id/textView11"
-                    app:layout_constraintTop_toTopOf="@+id/textView11"
+                    app:layout_constraintBottom_toBottomOf="@+id/selected_units"
+                    app:layout_constraintEnd_toStartOf="@+id/selected_units"
+                    app:layout_constraintTop_toTopOf="@+id/selected_units"
                     app:srcCompat="@drawable/ic_round_minimize_24" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/selected_units"
                     style="@style/text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
@@ -82,26 +86,28 @@
                     android:fontFamily="@font/nunito"
                     android:foregroundGravity="center"
                     android:gravity="center"
-                    android:text="1"
+                    android:text="@string/_1"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton"
-                    app:layout_constraintTop_toTopOf="@+id/imageButton" />
+                    app:layout_constraintBottom_toBottomOf="@+id/unitPlusBtn"
+                    app:layout_constraintEnd_toStartOf="@+id/unitPlusBtn"
+                    app:layout_constraintTop_toTopOf="@+id/unitPlusBtn" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/product_name"
                     style="@style/text_color"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginStart="24dp"
                     android:fontFamily="@font/nunito"
                     android:padding="2dp"
-                    android:text="Darjeeling Green Tea"
+                    android:paddingEnd="24dp"
+                    android:text="@string/tea"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlSymmetry" />
 
                 <LinearLayout
                     android:id="@+id/cardView3"
@@ -109,8 +115,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="@+id/textView3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3">
+                    app:layout_constraintStart_toStartOf="@+id/product_name"
+                    app:layout_constraintTop_toBottomOf="@+id/product_name">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
@@ -119,13 +125,13 @@
                         android:padding="5dp">
 
                         <TextView
-                            android:id="@+id/textView10"
+                            android:id="@+id/product_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/nunito"
                             android:padding="2dp"
-                            android:text="00"
+                            android:text="@string/_00"
                             android:textColor="?attr/colorPrimary"
                             android:textSize="24sp"
                             android:textStyle="bold"
@@ -140,9 +146,10 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="3dp"
                             android:layout_weight="1"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                            android:contentDescription="@string/default_description"
+                            app:layout_constraintBottom_toBottomOf="@+id/product_price"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/textView10"
+                            app:layout_constraintTop_toTopOf="@+id/product_price"
                             app:srcCompat="@drawable/rupee"
                             app:tint="?attr/colorPrimary" />
 
@@ -156,14 +163,27 @@
                 layout="@layout/product_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="0dp"
-                android:layout_marginRight="208dp"
+                android:layout_margin="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
+
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <include
+            layout="@layout/controller"/>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

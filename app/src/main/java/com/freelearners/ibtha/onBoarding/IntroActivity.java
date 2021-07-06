@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.freelearners.ibtha.R;
-import com.freelearners.ibtha.identification.IdentificationActivity;
+import com.freelearners.ibtha.views.ui.IdentificationActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

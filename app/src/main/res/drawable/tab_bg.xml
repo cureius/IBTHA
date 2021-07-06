@@ -2,13 +2,21 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <gradient android:angle="0"
-                android:endColor="?attr/background"
-                android:startColor="?attr/colorPrimarySurface"/>
+<!--            <gradient android:angle="0"-->
+<!--                android:endColor="?attr/background"-->
+<!--                android:startColor="?attr/colorPrimarySurface"/>-->
+<!--            <corners android:radius="20dp"/>-->
+<!--            <stroke-->
+<!--                android:width="2dp"-->
+<!--                android:color="@color/black"/>-->
+
             <corners android:radius="20dp"/>
-            <stroke
-                android:width="2dp"
-                android:color="@color/black"/>
+            <solid
+
+                android:color="?attr/colorBackgroundFloating"/>
+
         </shape>
+
     </item>
+
 </selector>

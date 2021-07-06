@@ -14,21 +14,21 @@
         android:theme="@style/Theme.IBTHA"
         android:usesCleartextTraffic="true"
         tools:targetApi="23">
-        <activity android:name=".home.marketPlace.ProductActivity">
+        <activity android:name=".views.ui.ProductActivity">
+
+        </activity>
+        <activity
+            android:name=".views.ui.SplashActivity"
+            android:theme="@style/splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SplashActivity"
-            android:theme="@style/splash">
-
-        </activity>
         <activity android:name=".onBoarding.IntroActivity" />
-        <activity android:name=".identification.IdentificationActivity" />
-        <activity android:name=".home.MainActivity" />
+        <activity android:name=".views.ui.IdentificationActivity" />
+        <activity android:name=".views.ui.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -26,8 +26,8 @@ public class ProductModel implements Parcelable {
     Category category;
     List<ProductPicture> productPictures;
     List<Review> reviews;
+    private static final String TAG = "ProductModel";
 
-    public String TAG = ProductModel.class.getName();
     public ProductModel() {
     }
 

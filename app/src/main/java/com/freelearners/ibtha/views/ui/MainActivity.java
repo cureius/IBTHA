@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         });
 
-        Log.d(TAG, "onCreate: "+ getAllProducts().toString());
+//        Log.d(TAG, "onCreate: "+ getAllProducts().toString());
     }
 
     private void replace(Fragment fragment) {
@@ -83,31 +83,31 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public ArrayList<ProductModel> getAllProducts(){
-
-        new ServerClass().sendPOSTArrayRequestToServer(getApplicationContext(),
-                Constants.BASE_URL + "/api/product/getProducts",
-                new ServerResponseCallback() {
-                    @Override
-                    public void onJSONResponse(JSONObject jsonObject) {
-                        Log.d(TAG, "onJSONResponse: " + jsonObject.toString());
-                    }
-
-                    @Override
-                    public void onJSONArrayResponse(JSONArray jsonArray) {
-                        productModels.clear();
-                        Type productType = new TypeToken<ArrayList<ProductModel>>(){}.getType();
-                        productModels = new Gson().fromJson(String.valueOf(jsonArray), productType);
-                        Toast.makeText(getApplicationContext(), "got main " + Integer.toString(productModels.size()) + " Products", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onJSONArrayResponse: " + productModels.toString());
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        Log.e(TAG, "onError: ", e);
-                        Toast.makeText(getApplicationContext(), "try again", Toast.LENGTH_SHORT).show();
-                    }
-                });
-        return productModels;
-    }
+//    public ArrayList<ProductModel> getAllProducts(){
+//
+//        new ServerClass().sendPOSTArrayRequestToServer(getApplicationContext(),
+//                Constants.BASE_URL + "/api/product/getProducts",
+//                new ServerResponseCallback() {
+//                    @Override
+//                    public void onJSONResponse(JSONObject jsonObject) {
+//                        Log.d(TAG, "onJSONResponse: " + jsonObject.toString());
+//                    }
+//
+//                    @Override
+//                    public void onJSONArrayResponse(JSONArray jsonArray) {
+//                        productModels.clear();
+//                        Type productType = new TypeToken<ArrayList<ProductModel>>(){}.getType();
+//                        productModels = new Gson().fromJson(String.valueOf(jsonArray), productType);
+//                        Toast.makeText(getApplicationContext(), "got main " + Integer.toString(productModels.size()) + " Products", Toast.LENGTH_SHORT).show();
+//                        Log.d(TAG, "onJSONArrayResponse: " + productModels.toString());
+//                    }
+//
+//                    @Override
+//                    public void onError(Exception e) {
+//                        Log.e(TAG, "onError: ", e);
+//                        Toast.makeText(getApplicationContext(), "try again", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//        return productModels;
+//    }
 }

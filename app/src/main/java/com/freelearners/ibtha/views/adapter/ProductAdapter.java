@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.freelearners.ibtha.server.Constants;
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.model.ProductModel;
@@ -36,6 +37,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public ProductAdapter(ArrayList<ProductModel> products, Context context) {
         this.products = products;
         this.context = context;
+    }
+    public void setProducts(ArrayList<ProductModel> products){
+        this.products = products;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -58,7 +63,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         url = Constants.BASE_URL + "/public/" + products.get(position).getProductPictures().get(0).getImg();
         Log.d(TAG, "onBindViewHolder: " + url);
 
-        Glide.with(context).load(url).into(holder.img);
+        Glide.with(context)
+                .load(url)
+//                .apply(RequestOptions.centerCropTransform())
+                .into(holder.img);
         holder.img.setOnClickListener(v -> { Log.d(TAG, "onBindViewHolder: "+"Item clicked "+products.get(position).toString());
             Intent intent = new Intent(context, ProductActivity.class);
             intent.putExtra("product", products.get(position));
@@ -69,7 +77,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return products.size();
+        if (this.products != null){
+            return products.size();
+        }
+        return 0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

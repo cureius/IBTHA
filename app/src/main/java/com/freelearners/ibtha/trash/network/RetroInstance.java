@@ -1,4 +1,4 @@
-package com.freelearners.ibtha.network;
+package com.freelearners.ibtha.trash.network;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

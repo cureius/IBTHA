@@ -1,4 +1,4 @@
-package com.freelearners.ibtha.server;
+package com.freelearners.ibtha.server.data;
 
 import org.json.JSONArray;
 import org.json.JSONException;

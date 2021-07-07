@@ -1,22 +1,21 @@
-package com.freelearners.ibtha.server;
+package com.freelearners.ibtha.server.data;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.freelearners.ibtha.server.VolleySingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ServerClass {
-    final static String TAG = ServerClass.class.getName();
+//    TODO make functions context independent.
 
+    private static final String TAG = "ServerClass";
     public void sendPOSTRequestToServer(Context context, JSONObject jsonObject, String URL, final ServerResponseCallback serverResponseCallback) {
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 URL,
@@ -31,11 +30,10 @@ public class ServerClass {
                     serverResponseCallback.onError(error);
                 }
         );
-        requestQueue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
 
     public void sendGETRequestToServer(Context context, String URL, final ServerResponseCallback serverResponseCallback) {
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 URL,
@@ -54,10 +52,10 @@ public class ServerClass {
 
                 }
         );
-        requestQueue.add(jsonArrayRequest);
+        VolleySingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
+
     }
     public void sendPOSTArrayRequestToServer(Context context, String URL, final ServerResponseCallback serverResponseCallback) {
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.POST,
                 URL,
@@ -76,6 +74,7 @@ public class ServerClass {
 
                 }
         );
-        requestQueue.add(jsonArrayRequest);
+        VolleySingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
+
     }
 }

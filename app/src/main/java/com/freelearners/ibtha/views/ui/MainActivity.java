@@ -1,35 +1,26 @@
 package com.freelearners.ibtha.views.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-import com.freelearners.ibtha.server.Constants;
 import com.freelearners.ibtha.R;
-import com.freelearners.ibtha.server.ServerClass;
-import com.freelearners.ibtha.server.ServerResponseCallback;
+import com.freelearners.ibtha.viewmodels.ProductViewModel;
 import com.freelearners.ibtha.views.adapter.ProductAdapter;
 import com.freelearners.ibtha.model.ProductModel;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private final int ID_HOME = 1;
-    private final int ID_MESSAGE = 2;
-    private final int ID_NOTIFICATION = 3;
+    private final int ID_SEARCH = 2;
+    private final int ID_CART = 3;
     private final int ID_ACCOUNT = 4;
     private TextView appName;
     private final String TAG = MainActivity.class.getName();
@@ -45,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
         appName = findViewById(R.id.toolbar_title);
         appName.setText("Indian Black Tea");
         bottomNavigation.add(new MeowBottomNavigation.Model(ID_HOME, R.drawable.ic_home));
-        bottomNavigation.add(new MeowBottomNavigation.Model(ID_MESSAGE, R.drawable.ic_message));
-        bottomNavigation.add(new MeowBottomNavigation.Model(ID_NOTIFICATION, R.drawable.ic_notifications));
+        bottomNavigation.add(new MeowBottomNavigation.Model(ID_SEARCH, R.drawable.ic_baseline_search_24));
+        bottomNavigation.add(new MeowBottomNavigation.Model(ID_CART, R.drawable.ic_outline_shopping_cart_24));
         bottomNavigation.add(new MeowBottomNavigation.Model(ID_ACCOUNT, R.drawable.ic_account));
 
-        bottomNavigation.setCount(ID_NOTIFICATION, "4");
+        bottomNavigation.setCount(ID_CART, "4");
         bottomNavigation.show(ID_HOME, true);
         replace(new ShopFragment());
         bottomNavigation.setOnClickMenuListener(model -> {
@@ -58,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
                     replace(new ShopFragment());
                     break;
 
-                case ID_MESSAGE:
+                case ID_SEARCH:
                     replace(new SearchFragment());
                     break;
 
-                case ID_NOTIFICATION:
+                case ID_CART:
                     replace(new CartFragment());
                     break;
 
@@ -74,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
             return null;
         });
 
-//        Log.d(TAG, "onCreate: "+ getAllProducts().toString());
+        ProductViewModel productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+        productViewModel.makeApiCall(this);
+
     }
 
     private void replace(Fragment fragment) {
@@ -83,31 +76,4 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-//    public ArrayList<ProductModel> getAllProducts(){
-//
-//        new ServerClass().sendPOSTArrayRequestToServer(getApplicationContext(),
-//                Constants.BASE_URL + "/api/product/getProducts",
-//                new ServerResponseCallback() {
-//                    @Override
-//                    public void onJSONResponse(JSONObject jsonObject) {
-//                        Log.d(TAG, "onJSONResponse: " + jsonObject.toString());
-//                    }
-//
-//                    @Override
-//                    public void onJSONArrayResponse(JSONArray jsonArray) {
-//                        productModels.clear();
-//                        Type productType = new TypeToken<ArrayList<ProductModel>>(){}.getType();
-//                        productModels = new Gson().fromJson(String.valueOf(jsonArray), productType);
-//                        Toast.makeText(getApplicationContext(), "got main " + Integer.toString(productModels.size()) + " Products", Toast.LENGTH_SHORT).show();
-//                        Log.d(TAG, "onJSONArrayResponse: " + productModels.toString());
-//                    }
-//
-//                    @Override
-//                    public void onError(Exception e) {
-//                        Log.e(TAG, "onError: ", e);
-//                        Toast.makeText(getApplicationContext(), "try again", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//        return productModels;
-//    }
 }

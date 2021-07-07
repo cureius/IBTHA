@@ -13,8 +13,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.freelearners.ibtha.server.Constants;
 import com.freelearners.ibtha.R;
-import com.freelearners.ibtha.server.ServerClass;
-import com.freelearners.ibtha.server.ServerResponseCallback;
+import com.freelearners.ibtha.server.data.ServerClass;
+import com.freelearners.ibtha.server.data.ServerResponseCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;

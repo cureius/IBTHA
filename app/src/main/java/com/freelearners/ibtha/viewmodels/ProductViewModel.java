@@ -1,40 +1,71 @@
 package com.freelearners.ibtha.viewmodels;
 
+import android.content.Context;
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.freelearners.ibtha.model.ProductModel;
-import com.freelearners.ibtha.network.APIService;
-import com.freelearners.ibtha.network.RetroInstance;
+import com.freelearners.ibtha.server.Constants;
+import com.freelearners.ibtha.server.data.ServerClass;
+import com.freelearners.ibtha.server.data.ServerResponseCallback;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class ProductViewModel extends ViewModel {
-    private MutableLiveData<List<ProductModel>> productList;
+    private static final String TAG = "ProductViewModel";
+    private final MutableLiveData<ArrayList<ProductModel>> productList;
 
     public ProductViewModel(){
         productList = new MutableLiveData<>();
     }
-    public MutableLiveData<List<ProductModel>> getProductListObserver(){
+    public MutableLiveData<ArrayList<ProductModel>> getProductListObserver(){
         return productList;
     }
-    public void makeApiCall(){
-        APIService apiService = RetroInstance.getRetroClint().create(APIService.class);
-        Call<List<ProductModel>> call = apiService.getProductList();
-        call.enqueue(new Callback<List<ProductModel>>() {
-            @Override
-            public void onResponse(Call<List<ProductModel>> call, Response<List<ProductModel>> response) {
-                productList.postValue(response.body());
-            }
+    public void makeApiCall(Context context){
 
-            @Override
-            public void onFailure(Call<List<ProductModel>> call, Throwable t) {
-                productList.postValue(null);
-            }
-        });
+        new ServerClass().sendPOSTArrayRequestToServer(context,
+                Constants.BASE_URL + "/api/product/getProducts",
+                new ServerResponseCallback() {
+                    @Override
+                    public void onJSONResponse(JSONObject jsonObject) {
+                        Log.d(TAG, "onJSONResponse: " + jsonObject.toString());
+                    }
+
+                    @Override
+                    public void onJSONArrayResponse(JSONArray jsonArray) {
+
+                        Log.d(TAG, "onJSONArrayResponse: " + jsonArray.toString());
+                        Type productType = new TypeToken<ArrayList<ProductModel>>(){}.getType();
+                        ArrayList<ProductModel> productModels = new Gson().fromJson(String.valueOf(jsonArray), productType);
+                        productList.postValue(productModels);
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Log.e(TAG, "onError: ", e);
+                        productList.postValue(null);
+                    }
+                });
+//        APIService apiService = RetroInstance.getRetroClint().create(APIService.class);
+//        Call<ArrayList<ProductModel>> call = apiService.getProductList();
+//        call.enqueue(new Callback<ArrayList<ProductModel>>() {
+//            @Override
+//            public void onResponse(@NotNull Call<ArrayList<ProductModel>> call, @NotNull Response<ArrayList<ProductModel>> response) {
+//            }
+//
+//            @Override
+//            public void onFailure(@NotNull Call<ArrayList<ProductModel>> call, @NotNull Throwable t) {
+//
+//            }
+//        });
     }
 }

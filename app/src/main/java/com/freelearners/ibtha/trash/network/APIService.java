@@ -1,16 +1,15 @@
-package com.freelearners.ibtha.network;
+package com.freelearners.ibtha.trash.network;
 
 import com.freelearners.ibtha.model.ProductModel;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import retrofit2.Call;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface APIService {
     @POST("/api/product/getProducts")
-    Call<List<ProductModel>> getProductList();
+    Call<ArrayList<ProductModel>> getProductList();
 
 
 }

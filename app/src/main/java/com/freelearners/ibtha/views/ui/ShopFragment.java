@@ -42,36 +42,9 @@ public class ShopFragment extends Fragment {
         ProductViewModel productViewModel = ViewModelProviders.of(requireActivity()).get(ProductViewModel.class);
         productViewModel.getProductListObserver().observe(getViewLifecycleOwner(), productModels -> {
             if (productModels != null){
-                productModelArrayList = (ArrayList<ProductModel>) productModels;
-                productAdapter.setProducts(productModelArrayList);
+                productAdapter.setProducts(productModels);
             }
         });
-//        new ServerClass().sendPOSTArrayRequestToServer(getContext(),
-//                Constants.BASE_URL + "/api/product/getProducts",
-//                new ServerResponseCallback() {
-//                    @Override
-//                    public void onJSONResponse(JSONObject jsonObject) {
-//                        Log.d(TAG, "onJSONResponse: " + jsonObject.toString());
-//                    }
-//
-//                    @Override
-//                    public void onJSONArrayResponse(JSONArray jsonArray) {
-//                        productModels.clear();
-//
-//
-//                        Toast.makeText(getContext(), "got " + Integer.toString(productModels.size()) + " Products", Toast.LENGTH_SHORT).show();
-//                        productAdapter = new ProductAdapter(productModels, getContext());
-//                        recyclerView.setAdapter(productAdapter);
-//                        productAdapter.notifyDataSetChanged();
-//                        Log.d(TAG, "onJSONArrayResponse: " + productModels.toString());
-//                    }
-//
-//                    @Override
-//                    public void onError(Exception e) {
-//                        Log.e(TAG, "onError: ", e);
-//                        Toast.makeText(getContext(), "try again", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
         return view;
     }
 }

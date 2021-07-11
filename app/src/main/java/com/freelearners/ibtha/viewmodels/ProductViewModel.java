@@ -23,13 +23,15 @@ public class ProductViewModel extends ViewModel {
     private static final String TAG = "ProductViewModel";
     private final MutableLiveData<ArrayList<ProductModel>> productList;
 
-    public ProductViewModel(){
+    public ProductViewModel() {
         productList = new MutableLiveData<>();
     }
-    public MutableLiveData<ArrayList<ProductModel>> getProductListObserver(){
+
+    public MutableLiveData<ArrayList<ProductModel>> getProductListObserver() {
         return productList;
     }
-    public void makeApiCall(Context context){
+
+    public void makeApiCall(Context context) {
 
         new ServerClass().sendPOSTArrayRequestToServer(context,
                 Constants.BASE_URL + "/api/product/getProducts",
@@ -43,7 +45,8 @@ public class ProductViewModel extends ViewModel {
                     public void onJSONArrayResponse(JSONArray jsonArray) {
 
                         Log.d(TAG, "onJSONArrayResponse: " + jsonArray.toString());
-                        Type productType = new TypeToken<ArrayList<ProductModel>>(){}.getType();
+                        Type productType = new TypeToken<ArrayList<ProductModel>>() {
+                        }.getType();
                         ArrayList<ProductModel> productModels = new Gson().fromJson(String.valueOf(jsonArray), productType);
                         productList.postValue(productModels);
 
@@ -55,17 +58,5 @@ public class ProductViewModel extends ViewModel {
                         productList.postValue(null);
                     }
                 });
-//        APIService apiService = RetroInstance.getRetroClint().create(APIService.class);
-//        Call<ArrayList<ProductModel>> call = apiService.getProductList();
-//        call.enqueue(new Callback<ArrayList<ProductModel>>() {
-//            @Override
-//            public void onResponse(@NotNull Call<ArrayList<ProductModel>> call, @NotNull Response<ArrayList<ProductModel>> response) {
-//            }
-//
-//            @Override
-//            public void onFailure(@NotNull Call<ArrayList<ProductModel>> call, @NotNull Throwable t) {
-//
-//            }
-//        });
     }
 }

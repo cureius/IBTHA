@@ -11,17 +11,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.freelearners.ibtha.model.LogInRes;
+import com.freelearners.ibtha.model.ProductModel;
+import com.freelearners.ibtha.model.User;
 import com.freelearners.ibtha.server.Constants;
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.server.data.ServerClass;
 import com.freelearners.ibtha.server.data.ServerResponseCallback;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class IdentificationActivity extends AppCompatActivity {
-        final static String TAG = IdentificationActivity.class.getName();
+    final static String TAG = IdentificationActivity.class.getName();
 
     private FrameLayout frameLayout;
 
@@ -79,12 +85,15 @@ public class IdentificationActivity extends AppCompatActivity {
                     public void onJSONResponse(JSONObject jsonObject) {
                         Log.d(TAG, "onJSONResponse: " + jsonObject.toString());
                         Toast.makeText(IdentificationActivity.this, " Logged in Successfully", Toast.LENGTH_SHORT).show();
+                        LogInRes user = new Gson().fromJson(String.valueOf(jsonObject), LogInRes.class);
 
                         SharedPreferences sharedPreferences = getSharedPreferences("identification", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean("identified", true);
+                        editor.putString("token", user.getToken());
                         editor.apply();
 //                        editor.commit();
+                        Toast.makeText(IdentificationActivity.this, "token " + user.getToken(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -124,14 +133,15 @@ public class IdentificationActivity extends AppCompatActivity {
                         Log.d(TAG, "onJSONResponse: " + jsonObject.toString());
                         Toast.makeText(IdentificationActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
 
-                        SharedPreferences sharedPreferences = getSharedPreferences("identification", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean("identified", true);
-                        editor.apply();
-
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        loginRequest(email, password,"/api/signin");
+//                        SharedPreferences sharedPreferences = getSharedPreferences("identification", MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        editor.putBoolean("identified", true);
+//                        editor.apply();
+//
+//                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
                     }
 
                     @Override

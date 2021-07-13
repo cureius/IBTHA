@@ -61,7 +61,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         holder.title.setText(cartItems.get(position).getProduct().getName());
         holder.quantity.setText(R.string.unit_gm);
         holder.price.setText(Integer.toString(cartItems.get(position).getProduct().getPrice()));
-        holder.unit.setText(Integer.toString(cartItems.get(position).getProduct().getQuantity()));
+        holder.unit.setText(Integer.toString(cartItems.get(position).getQuantity()));
         String url;
         url = Constants.BASE_URL + "/public/" + cartItems.get(position).getProduct().getProductPictures().get(0).getImg();
         Log.d(TAG, "onBindViewHolder: " + url);

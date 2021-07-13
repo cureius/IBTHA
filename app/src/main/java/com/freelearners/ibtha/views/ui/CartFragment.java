@@ -74,6 +74,7 @@ public class CartFragment extends Fragment {
 
         SharedPreferences getSharedPreferences = requireContext().getSharedPreferences("identification", MODE_PRIVATE);
         String token = getSharedPreferences.getString("token", null);
+
         new ServerClass().sendPOSTRequestToServerWithHeader(getContext(),
                 null,
                 Constants.BASE_URL + "/api/user/getCartProducts",
@@ -81,15 +82,15 @@ public class CartFragment extends Fragment {
                 new ServerResponseCallback() {
                     @Override
                     public void onJSONResponse(JSONObject jsonObject) {
-                        Toast.makeText(getContext(), "cart " + jsonObject.toString(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "cart " + jsonObject.toString(), Toast.LENGTH_SHORT).show();
                         Cart cart = new Gson().fromJson(String.valueOf(jsonObject), Cart.class);
                         Log.d(TAG, "onJSONResponse: " + cart.toString());
                         Log.d(TAG, "onJSONResponse: " + cart.getCartItems());
 //                        cartItemList.postValue(cart.getCartItems());
                         cartitemAdapter = new CartItemAdapter(cart.getCartItems(), getContext());
+                        recyclerView.setAdapter(cartitemAdapter);
+
                         cartitemAdapter.notifyDataSetChanged();
-
-
 
                     }
 
@@ -105,7 +106,6 @@ public class CartFragment extends Fragment {
 
                     }
                 });
-        recyclerView.setAdapter(cartitemAdapter);
 
         return view;
     }

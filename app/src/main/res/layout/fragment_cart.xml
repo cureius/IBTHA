@@ -6,17 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".views.ui.CartFragment">
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cart_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="2dp"
+                android:paddingBottom="152dp" />
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/textView3"
@@ -47,30 +59,21 @@
         app:tint="?attr/colorPrimary" />
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="UselessParent">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView3"-->
+<!--        tools:ignore="UselessParent">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="200dp">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:paddingBottom="200dp">-->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/cart_recycler_view"
-                android:layout_width="0dp"
-                android:layout_height="733dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-            <!--            <include layout="@layout/cart_item" />-->
+    <!--            <include layout="@layout/cart_item" />-->
 
             <!--            <include layout="@layout/cart_item" />-->
 
@@ -86,8 +89,8 @@
             <!--            <include layout="@layout/cart_item" />-->
 
 
-        </LinearLayout>
-    </ScrollView>
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
 
     <LinearLayout
         android:id="@+id/cart_control_bar"
@@ -157,4 +160,5 @@
                 app:layout_constraintTop_toTopOf="@+id/total_item_cart" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

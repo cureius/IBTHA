@@ -2,7 +2,6 @@ package com.freelearners.ibtha.views.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.model.CartItem;
-import com.freelearners.ibtha.model.ProductModel;
 import com.freelearners.ibtha.server.Constants;
-import com.freelearners.ibtha.views.ui.ProductActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -62,6 +59,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         holder.quantity.setText(R.string.unit_gm);
         holder.price.setText(Integer.toString(cartItems.get(position).getProduct().getPrice()));
         holder.unit.setText(Integer.toString(cartItems.get(position).getQuantity()));
+
         String url;
         url = Constants.BASE_URL + "/public/" + cartItems.get(position).getProduct().getProductPictures().get(0).getImg();
         Log.d(TAG, "onBindViewHolder: " + url);

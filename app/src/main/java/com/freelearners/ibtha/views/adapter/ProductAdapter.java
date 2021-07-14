@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,21 +31,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Filterable {
 
     ArrayList<ProductModel> products;
     Context context;
+    List<String> allProductList;
+    List<String> productList;
 
     private static final String TAG = "ProductAdapter";
 
     public ProductAdapter(ArrayList<ProductModel> products, Context context) {
         this.products = products;
         this.context = context;
+
     }
 
     public void setProducts(ArrayList<ProductModel> products) {
@@ -83,14 +91,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.title.setText(products.get(position).getName());
         holder.unit.setText(R.string.unit_gm);
         holder.price.setText(Integer.toString(products.get(position).getPrice()));
-        String url;
-        url = Constants.BASE_URL + "/public/" + products.get(position).getProductPictures().get(0).getImg();
-        Log.d(TAG, "onBindViewHolder: " + url);
 
-        Glide.with(context)
-                .load(url)
+        if (products.get(position).getProductPictures().get(0).getImg() != null) {
+            String url = "";
+            url = Constants.BASE_URL + "/public/" + products.get(position).getProductPictures().get(0).getImg();
+            Log.d(TAG, "onBindViewHolder: " + url);
+
+            Glide.with(context)
+                    .load(url)
 //                .apply(RequestOptions.centerCropTransform())
-                .into(holder.img);
+                    .into(holder.img);
+        }
+
         holder.img.setOnClickListener(v -> {
             Log.d(TAG, "onBindViewHolder: " + "Item clicked " + products.get(position).toString());
             Intent intent = new Intent(context, ProductActivity.class);
@@ -108,7 +120,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 }
 
                 @Override
-                public void onJSONArrayResponse(JSONArray jsonArray) throws JSONException {
+                public void onJSONArrayResponse(JSONArray jsonArray) {
                     Toast.makeText(context, "Item added to your cart", Toast.LENGTH_SHORT).show();
 
                 }
@@ -118,6 +130,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     Toast.makeText(context, "fail to add to cart", Toast.LENGTH_SHORT).show();
                 }
             });
+//            CartViewModel cartViewModel = ViewModelProviders.of(context.get).get(CartViewModel.class);
+//            cartViewModel.addItem(context, jsonObject);
+
         });
     }
 
@@ -128,6 +143,38 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         }
         return 0;
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<ProductModel> filteredList = new ArrayList<>();
+            if (constraint.toString().isEmpty()) {
+                filteredList.addAll(products);
+            } else {
+                    for (int i = 0; i < products.size(); i++) {
+                        if (products.get(i).getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                            filteredList.add(products.get(i));
+                        }
+                    }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+//            products.clear();
+            products.addAll((Collection<? extends ProductModel>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 

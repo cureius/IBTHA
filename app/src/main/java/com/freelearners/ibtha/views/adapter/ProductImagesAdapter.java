@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
-import com.freelearners.ibtha.server.Constants;
+import com.freelearners.ibtha.database.remote.server.Constants;
 
 import org.jetbrains.annotations.NotNull;
 

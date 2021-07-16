@@ -1,4 +1,4 @@
-package com.freelearners.ibtha.server;
+package com.freelearners.ibtha.database.remote.server;
 
 import android.content.Context;
 

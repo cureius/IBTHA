@@ -95,6 +95,8 @@
     <LinearLayout
         android:id="@+id/cart_control_bar"
         android:layout_width="match_parent"
+        android:background="@drawable/primary_box"
+        android:backgroundTint="?attr/colorControlHighlight"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
         android:orientation="horizontal"
@@ -148,6 +150,7 @@
                 android:id="@+id/buy_now_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/tab_bg"
                 android:paddingStart="30dp"

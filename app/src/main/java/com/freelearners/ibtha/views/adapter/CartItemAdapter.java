@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.model.CartItem;
-import com.freelearners.ibtha.server.Constants;
+import com.freelearners.ibtha.database.remote.server.Constants;
 
 import org.jetbrains.annotations.NotNull;
 

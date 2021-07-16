@@ -35,7 +35,7 @@ public class ShopFragment extends Fragment {
 
         productAdapter = new ProductAdapter(productModelArrayList, getContext());
         RecyclerView recyclerView = view.findViewById(R.id.shop_recyclerview);
-        recyclerView.setNestedScrollingEnabled(false);
+//        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(productAdapter);
 

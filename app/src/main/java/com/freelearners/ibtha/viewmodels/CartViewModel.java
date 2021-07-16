@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.freelearners.ibtha.model.Cart;
 import com.freelearners.ibtha.model.CartItem;
-import com.freelearners.ibtha.server.Constants;
-import com.freelearners.ibtha.server.data.ServerClass;
-import com.freelearners.ibtha.server.data.ServerResponseCallback;
+import com.freelearners.ibtha.database.remote.server.Constants;
+import com.freelearners.ibtha.database.remote.server.data.ServerClass;
+import com.freelearners.ibtha.database.remote.server.data.ServerResponseCallback;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;

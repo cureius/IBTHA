@@ -21,9 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.model.ProductModel;
-import com.freelearners.ibtha.server.Constants;
-import com.freelearners.ibtha.server.data.ServerClass;
-import com.freelearners.ibtha.server.data.ServerResponseCallback;
+import com.freelearners.ibtha.database.remote.server.Constants;
+import com.freelearners.ibtha.database.remote.server.data.ServerClass;
+import com.freelearners.ibtha.database.remote.server.data.ServerResponseCallback;
 import com.freelearners.ibtha.views.ui.ProductActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,10 +31,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -43,9 +41,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     ArrayList<ProductModel> products;
     Context context;
-    List<String> allProductList;
-    List<String> productList;
-
     private static final String TAG = "ProductAdapter";
 
     public ProductAdapter(ArrayList<ProductModel> products, Context context) {
@@ -130,8 +125,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     Toast.makeText(context, "fail to add to cart", Toast.LENGTH_SHORT).show();
                 }
             });
-//            CartViewModel cartViewModel = ViewModelProviders.of(context.get).get(CartViewModel.class);
-//            cartViewModel.addItem(context, jsonObject);
 
         });
     }

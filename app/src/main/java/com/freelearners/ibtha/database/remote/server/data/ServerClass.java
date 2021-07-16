@@ -1,4 +1,4 @@
-package com.freelearners.ibtha.server.data;
+package com.freelearners.ibtha.database.remote.server.data;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,7 +7,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.freelearners.ibtha.server.VolleySingleton;
+import com.freelearners.ibtha.database.remote.server.VolleySingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -48,7 +48,7 @@ public class CartFragment extends Fragment {
 
         cartitemAdapter = new CartItemAdapter(cartItemArrayList, getContext());
         RecyclerView recyclerView = view.findViewById(R.id.cart_recycler_view);
-        recyclerView.setNestedScrollingEnabled(false);
+//        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(cartitemAdapter);
 //

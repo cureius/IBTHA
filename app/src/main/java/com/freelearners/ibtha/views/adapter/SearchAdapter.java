@@ -26,8 +26,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> implements Filterable {
+public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
 
+    private static final int TYPE_FOOTER = 1;
+    private static final int TYPE_ITEM = 2;
 
     ArrayList<ProductModel> products;
     ArrayList<ProductModel> productsBackup;
@@ -80,46 +82,81 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @NonNull
     @NotNull
     @Override
-    public SearchAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View itemView = layoutInflater.inflate(R.layout.search_items, parent, false);
-
-        return new SearchAdapter.ViewHolder(itemView);
+        View view = layoutInflater.inflate(R.layout.search_items, parent, false);
+        if (viewType == TYPE_ITEM) {
+            //Inflating recycle view item layout
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_items, parent, false);
+            return new SearchAdapter.ItemViewHolder(itemView);
+        } else if (viewType == TYPE_FOOTER) {
+            //Inflating footer view
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_footer, parent, false);
+            return new SearchAdapter.FooterViewHolder(itemView);
+        } else
+            return null;
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull @NotNull SearchAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof SearchAdapter.FooterViewHolder) {
+            SearchAdapter.FooterViewHolder footerHolder = (SearchAdapter.FooterViewHolder) holder;
+//            footerHolder.footerText.setText("Footer View");
+        } else if (holder instanceof SearchAdapter.ItemViewHolder) {
+            SearchAdapter.ItemViewHolder itemViewHolder = (SearchAdapter.ItemViewHolder) holder;
 
-        holder.title.setText(products.get(position).getName());
-        holder.unit.setText(R.string.unit_gm);
-        holder.price.setText(Integer.toString(products.get(position).getPrice()));
+            itemViewHolder.title.setText(products.get(position).getName());
+            itemViewHolder.unit.setText(R.string.unit_gm);
+            itemViewHolder.price.setText(Integer.toString(products.get(position).getPrice()));
 
-        if (products.get(position).getProductPictures().get(0).getImg() != null) {
-            String url = "";
-            url = Constants.BASE_URL + "/public/" + products.get(position).getProductPictures().get(0).getImg();
-            Log.d(TAG, "onBindViewHolder: " + url);
+            if (products.get(position).getProductPictures().get(0).getImg() != null) {
+                String url = "";
+                url = Constants.BASE_URL + "/public/" + products.get(position).getProductPictures().get(0).getImg();
+                Log.d(TAG, "onBindViewHolder: " + url);
 
-            Glide.with(context)
-                    .load(url)
+                Glide.with(context)
+                        .load(url)
 //                .apply(RequestOptions.centerCropTransform())
-                    .into(holder.img);
-        }
+                        .into(itemViewHolder.img);
+            }
 
-        holder.searchCard.setOnClickListener(v -> {
-            Log.d(TAG, "onBindViewHolder: " + "Item clicked " + products.get(position).toString());
-            Intent intent = new Intent(context, ProductActivity.class);
-            intent.putExtra("product", products.get(position));
-            context.startActivity(intent);
-        });
+            itemViewHolder.searchCard.setOnClickListener(v -> {
+                Log.d(TAG, "onBindViewHolder: " + "Item clicked " + products.get(position).toString());
+                Intent intent = new Intent(context, ProductActivity.class);
+                intent.putExtra("product", products.get(position));
+                context.startActivity(intent);
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        if (this.products != null) {
+            return products.size() + 1;
+        }
+        return 0;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == products.size()) {
+            return TYPE_FOOTER;
+        }
+        return TYPE_ITEM;
+    }
+
+    private static class FooterViewHolder extends RecyclerView.ViewHolder {
+        TextView footerText;
+
+        public FooterViewHolder(View view) {
+            super(view);
+            footerText = (TextView) view.findViewById(R.id.footer_text);
+        }
+    }
+
+    public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         public CardView searchCard;
         public ImageView img;
@@ -127,7 +164,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         public TextView unit;
         public TextView price;
 
-        public ViewHolder(@NonNull @NotNull View itemView) {
+        public ItemViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             searchCard = itemView.findViewById(R.id.search_card_view);
             title = itemView.findViewById(R.id.product_name_search);

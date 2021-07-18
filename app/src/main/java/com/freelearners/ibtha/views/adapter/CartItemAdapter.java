@@ -15,21 +15,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.freelearners.ibtha.R;
-import com.freelearners.ibtha.model.CartItem;
 import com.freelearners.ibtha.database.remote.server.Constants;
+import com.freelearners.ibtha.model.CartItem;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHolder> {
+public class CartItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final int TYPE_FOOTER = 1;
+    private static final int TYPE_ITEM = 2;
 
     ArrayList<CartItem> cartItems;
     Context context;
 
     private static final String TAG = "CartItemAdapter";
-    
+
     public CartItemAdapter(ArrayList<CartItem> cartItems, Context context) {
         this.cartItems = cartItems;
         this.context = context;
@@ -45,39 +47,72 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
     @NonNull
     @NotNull
     @Override
-    public CartItemAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View itemView = layoutInflater.inflate(R.layout.cart_item, parent, false);
-
-        return new ViewHolder(itemView);
+        View view = layoutInflater.inflate(R.layout.cart_item, parent, false);
+        if (viewType == TYPE_ITEM) {
+            //Inflating recycle view item layout
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item, parent, false);
+            return new CartItemAdapter.ItemViewHolder(itemView);
+        } else if (viewType == TYPE_FOOTER) {
+            //Inflating footer view
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_footer, parent, false);
+            return new CartItemAdapter.FooterViewHolder(itemView);
+        } else
+            return null;
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        holder.title.setText(cartItems.get(position).getProduct().getName());
-        holder.quantity.setText(R.string.unit_gm);
-        holder.price.setText(Integer.toString(cartItems.get(position).getProduct().getPrice()));
-        holder.unit.setText(Integer.toString(cartItems.get(position).getQuantity()));
+    public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof CartItemAdapter.FooterViewHolder) {
+            CartItemAdapter.FooterViewHolder footerHolder = (CartItemAdapter.FooterViewHolder) holder;
+//            footerHolder.footerText.setText("Footer View");
+        } else if (holder instanceof CartItemAdapter.ItemViewHolder) {
+            CartItemAdapter.ItemViewHolder itemViewHolder = (CartItemAdapter.ItemViewHolder) holder;
 
-        String url;
-        url = Constants.BASE_URL + "/public/" + cartItems.get(position).getProduct().getProductPictures().get(0).getImg();
-        Log.d(TAG, "onBindViewHolder: " + url);
+            itemViewHolder.title.setText(cartItems.get(position).getProduct().getName());
+            itemViewHolder.quantity.setText(R.string.unit_gm);
+            itemViewHolder.price.setText(Integer.toString(cartItems.get(position).getProduct().getPrice()));
+            itemViewHolder.unit.setText(Integer.toString(cartItems.get(position).getQuantity()));
 
-        Glide.with(context)
-                .load(url)
-                .into(holder.img);
+            String url = "";
+            url = Constants.BASE_URL + "/public/" + cartItems.get(position).getProduct().getProductPictures().get(0).getImg();
+            Log.d(TAG, "onBindViewHolder: " + url);
+
+            Glide.with(context)
+                    .load(url)
+                    .into(itemViewHolder.img);
+        }
     }
 
     @Override
     public int getItemCount() {
         if (this.cartItems != null) {
-            return cartItems.size();
+            return cartItems.size() + 1;
         }
         return 0;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == cartItems.size()) {
+            return TYPE_FOOTER;
+        }
+        return TYPE_ITEM;
+    }
+
+    private static class FooterViewHolder extends RecyclerView.ViewHolder {
+        TextView footerText;
+
+        public FooterViewHolder(View view) {
+            super(view);
+            footerText = (TextView) view.findViewById(R.id.footer_text);
+        }
+    }
+
+    public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public ImageView img;
         public TextView title;
         public TextView quantity;
@@ -85,7 +120,8 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         public TextView price;
         public ImageButton add;
         public ImageButton subtract;
-        public ViewHolder(@NonNull @NotNull View itemView) {
+
+        public ItemViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.product_name_cart);
             quantity = itemView.findViewById(R.id.product_quantity);

@@ -21,9 +21,6 @@ public interface UserDao {
     @Query("DELETE FROM User_Database WHERE id = :id")
     void deleteUser(int id);
 
-    @Query("DELETE FROM User_Database")
-    void deleteAllUser();
-
     @Update
     void updateUser(User users);
 

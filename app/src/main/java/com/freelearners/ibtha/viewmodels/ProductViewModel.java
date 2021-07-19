@@ -22,17 +22,13 @@ import java.util.ArrayList;
 public class ProductViewModel extends ViewModel {
     private static final String TAG = "ProductViewModel";
     private final MutableLiveData<ArrayList<ProductModel>> productList;
-    private final ArrayList<ProductModel> productModelArrayList = new ArrayList<>();
+
     public ProductViewModel() {
         productList = new MutableLiveData<>();
     }
 
     public MutableLiveData<ArrayList<ProductModel>> getProductListObserver() {
         return productList;
-    }
-
-    public ArrayList<ProductModel> getProductList() {
-        return productModelArrayList;
     }
 
     public void makeApiCall(Context context) {
@@ -47,12 +43,12 @@ public class ProductViewModel extends ViewModel {
 
                     @Override
                     public void onJSONArrayResponse(JSONArray jsonArray) {
-                        productModelArrayList.clear();
+
                         Log.d(TAG, "onJSONArrayResponse: " + jsonArray.toString());
-                        Type productType = new TypeToken<ArrayList<ProductModel>>() {}.getType();
+                        Type productType = new TypeToken<ArrayList<ProductModel>>() {
+                        }.getType();
                         ArrayList<ProductModel> productModels = new Gson().fromJson(String.valueOf(jsonArray), productType);
                         productList.postValue(productModels);
-                        productModelArrayList.addAll(productModels);
 
                     }
 

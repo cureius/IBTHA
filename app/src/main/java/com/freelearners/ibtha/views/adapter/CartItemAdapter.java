@@ -59,7 +59,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_footer, parent, false);
             return new CartItemAdapter.FooterViewHolder(itemView);
         } else
-            return new CartItemAdapter.ItemViewHolder(view);
+            return null;
     }
 
     @SuppressLint("SetTextI18n")
@@ -76,7 +76,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             itemViewHolder.price.setText(Integer.toString(cartItems.get(position).getProduct().getPrice()));
             itemViewHolder.unit.setText(Integer.toString(cartItems.get(position).getQuantity()));
 
-            String url="https://png.pngtree.com/png-vector/20190723/ourlarge/pngtree-flat-error-icon--vector-png-image_1569846.jpg";
+            String url = "";
             url = Constants.BASE_URL + "/public/" + cartItems.get(position).getProduct().getProductPictures().get(0).getImg();
             Log.d(TAG, "onBindViewHolder: " + url);
 

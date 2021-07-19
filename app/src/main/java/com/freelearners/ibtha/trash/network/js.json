@@ -1,0 +1,63 @@
+{
+  "_id": "60e95317426ce020a16b4777",
+  "user": "60e95305426ce020a16b4776",
+  "cartItems": [
+    {
+      "quantity": 1,
+      "_id": "60e95317426ce020a16b4778",
+      "product": {
+        "_id": "60cf43cea6568a2bf33c8bf3",
+        "name": "realme 8 5G (Supersonic Blue, 64 GB)",
+        "price": 13900,
+        "productPictures": [
+          {
+            "_id": "60cf43cea6568a2bf33c8bf4",
+            "img": "5b9pmVma7-16241960467308-5g-rmx3241-realme-original-imag2d8e9vyp25sq.webp"
+          },
+          {
+            "_id": "60cf43cea6568a2bf33c8bf5",
+            "img": "Rrv6P4YtC9-16241960467318-5g-rmx3241-realme-original-imag2d8ead26gunm.webp"
+          },
+          {
+            "_id": "60cf43cea6568a2bf33c8bf6",
+            "img": "vVSGbCFaEJ-16241960467318-5g-rmx3241-realme-original-imag2d8ee4khhhuc.webp"
+          },
+          {
+            "_id": "60cf43cea6568a2bf33c8bf7",
+            "img": "4dgJLEGlab-16241960467328-5g-rmx3241-realme-original-imag2d8eghmxny8e.webp"
+          },
+          {
+            "_id": "60cf43cea6568a2bf33c8bf8",
+            "img": "OJk5yoY4sr-16241960467328-5g-rmx3241-realme-original-imag2d8ezrtqdgsu.webp"
+          },
+          {
+            "_id": "60cf43cea6568a2bf33c8bf9",
+            "img": "sKCfCJx7NC-1624196046733c21-rmx3201-realme-original-imagfxfwyat6pphu.webp"
+          }
+        ]
+      }
+    },
+    {
+      "quantity": 2,
+      "_id": "60e95321426ce020a16b477a",
+      "product": {
+        "_id": "60cf41c6a6568a2bf33c8beb",
+        "name": "realme C21 (Cross Black, 3 GB)",
+        "price": 7000,
+        "productPictures": [
+          {
+            "_id": "60cf41c6a6568a2bf33c8bec",
+            "img": "lruEwQAB3-1624195526032c21-rmx3201-realme-original-imagfxfw3becexew.webp"
+          },
+          {
+            "_id": "60cf41c6a6568a2bf33c8bed",
+            "img": "QF42DtlwXY-1624195526033c21-rmx3201-realme-original-imagfxfwbszrxkvu.webp"
+          }
+        ]
+      }
+    }
+  ],
+  "createdAt": "2021-07-10T07:58:15.796Z",
+  "updatedAt": "2021-07-10T07:58:25.062Z",
+  "__v": 0
+}

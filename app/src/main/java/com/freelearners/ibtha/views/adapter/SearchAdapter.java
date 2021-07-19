@@ -38,7 +38,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public SearchAdapter(ArrayList<ProductModel> products, Context context) {
         this.products = products;
-        productsBackup = products;
+        productsBackup = new ArrayList<>(products);
         this.context = context;
 
     }
@@ -94,7 +94,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_footer, parent, false);
             return new SearchAdapter.FooterViewHolder(itemView);
         } else
-            return new SearchAdapter.ItemViewHolder(view);
+            return null;
     }
 
     @SuppressLint("SetTextI18n")
@@ -111,7 +111,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemViewHolder.price.setText(Integer.toString(products.get(position).getPrice()));
 
             if (products.get(position).getProductPictures().get(0).getImg() != null) {
-                String url="https://png.pngtree.com/png-vector/20190723/ourlarge/pngtree-flat-error-icon--vector-png-image_1569846.jpg";
+                String url = "";
                 url = Constants.BASE_URL + "/public/" + products.get(position).getProductPictures().get(0).getImg();
                 Log.d(TAG, "onBindViewHolder: " + url);
 

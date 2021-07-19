@@ -1,7 +1,6 @@
 package com.freelearners.ibtha.repository;
 
 import android.app.Application;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -32,26 +31,8 @@ public class UserRepository {
         userDao.deleteUser(id);
     }
 
-    public void deleteAllUser() {
-       new deleteAllUsersAsyncTask(userDao).execute();
-    }
-
     public void updateUser(User user) {
         userDao.updateUser(user);
-    }
-
-    private static class deleteAllUsersAsyncTask extends AsyncTask<Void, Void, Void>{
-//      TODO use other method than AsyncTask here.
-        private UserDao myAsyncTaskDao;
-        deleteAllUsersAsyncTask(UserDao dao){
-            myAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            myAsyncTaskDao.deleteAllUser();
-            return null;
-        }
     }
 
 }

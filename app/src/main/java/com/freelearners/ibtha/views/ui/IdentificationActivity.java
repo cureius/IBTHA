@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.freelearners.ibtha.R;
@@ -40,6 +39,9 @@ public class IdentificationActivity extends AppCompatActivity {
 
         frameLayout = findViewById(R.id.frame_layout_identification);
         setFragment(new LogInFragment());
+
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+
 
     }
 
@@ -89,20 +91,13 @@ public class IdentificationActivity extends AppCompatActivity {
                         Toast.makeText(IdentificationActivity.this, " Logged in Successfully", Toast.LENGTH_SHORT).show();
                         LogInRes user = new Gson().fromJson(String.valueOf(jsonObject), LogInRes.class);
 
-//                        saveUser(user.getUser().getId(), user.getUser().getRole(), user.getUser().getFirstName(), user.getUser().getLastName(), user.getUser().getEmail(), user.getUser().getUsername());
+                        saveUser(user.getUser().getId(), user.getUser().getRole(), user.getUser().getFirstName(), user.getUser().getLastName(), user.getUser().getEmail(), user.getUser().getUsername());
                         SharedPreferences sharedPreferences = getSharedPreferences("identification", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean("identified", true);
                         editor.putString("token", user.getToken());
-
-                        editor.putString("_id", user.getUser().getId());
-                        editor.putString("firstName", user.getUser().getFirstName());
-                        editor.putString("lastName", user.getUser().getLastName());
-                        editor.putString("email", user.getUser().getEmail());
-                        editor.putString("username", user.getUser().getUsername());
-
                         editor.apply();
-
+//                        editor.commit();
                         Toast.makeText(IdentificationActivity.this, "token " + user.getToken(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
@@ -142,8 +137,16 @@ public class IdentificationActivity extends AppCompatActivity {
                     public void onJSONResponse(JSONObject jsonObject) {
                         Log.d(TAG, "onJSONResponse: " + jsonObject.toString());
                         Toast.makeText(IdentificationActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
-                        loginRequest(email, password, "/api/signin");
 
+                        loginRequest(email, password, "/api/signin");
+//                        SharedPreferences sharedPreferences = getSharedPreferences("identification", MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        editor.putBoolean("identified", true);
+//                        editor.apply();
+//
+//                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
                     }
 
                     @Override
@@ -168,9 +171,12 @@ public class IdentificationActivity extends AppCompatActivity {
         user.setEmail(email);
         user.setUsername(username);
 
-        AsyncTask.execute(() -> {
-            userViewModel.insertUsers(user);
-            Log.d(TAG, "run: user inserting " + user.toString());
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                userViewModel.insertUsers(user);
+                Log.d(TAG, "run: user inserting " + user.toString());
+            }
         });
 
 

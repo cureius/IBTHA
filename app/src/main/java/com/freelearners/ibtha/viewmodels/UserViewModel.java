@@ -30,9 +30,6 @@ public class UserViewModel extends AndroidViewModel {
     public void deleteUser(int id) {
         repository.deleteUser(id);
     }
-    public void deleteAllUser() {
-        repository.deleteAllUser();
-    }
 
     public void updateUser(User user) {
         repository.updateUser(user);

@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.onBoarding.IntroActivity;
+import com.freelearners.ibtha.viewmodels.UserViewModel;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -32,18 +34,16 @@ public class SplashActivity extends AppCompatActivity {
         name=findViewById(R.id.sp_app_name);
         topAnim= AnimationUtils.loadAnimation(this,R.anim.top);
         bottomAnim= AnimationUtils.loadAnimation(this,R.anim.bottom);
-        topAnim.setDuration(2000);
+        topAnim.setDuration(1800);
         bottomAnim.setDuration(1500);
 //        animation
         logo.setAnimation(topAnim);
         name.setAnimation(bottomAnim);
 
-
-        int SPLASH_SCREEN = 3000;
+        int SPLASH_SCREEN = 2000;
         new Handler().postDelayed(() -> {
             SharedPreferences getSharedPreferences = getSharedPreferences("identification", MODE_PRIVATE);
             boolean loggedIn = getSharedPreferences.getBoolean("identified", false);
-
 
             if (loggedIn){
                 Toast.makeText(SplashActivity.this, "loggedIn", Toast.LENGTH_SHORT).show();
@@ -57,7 +57,6 @@ public class SplashActivity extends AppCompatActivity {
             finish();
 
         }, SPLASH_SCREEN);
-
 
     }
 }

@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,6 +18,8 @@ import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.model.CartItem;
 import com.freelearners.ibtha.viewmodels.CartViewModel;
 import com.freelearners.ibtha.views.adapter.CartItemAdapter;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -42,6 +46,13 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         totalCalculate = view.findViewById(R.id.total_item_cart);
         totalPay = view.findViewById(R.id.total_price_cart);
@@ -71,6 +82,6 @@ public class CartFragment extends Fragment {
                 totalPay.setText(String.valueOf(integer));
             }
         });
-        return view;
+
     }
 }

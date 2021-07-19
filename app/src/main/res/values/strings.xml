@@ -46,4 +46,6 @@
     <string name="buy_now">Buy Now</string>
     <string name="total_0">Total(0)</string>
     <string name="my_cart">My Cart</string>
+    <string name="name">name</string>
+    <string name="log_out">Log Out</string>
 </resources>

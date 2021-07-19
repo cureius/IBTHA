@@ -91,13 +91,20 @@ public class IdentificationActivity extends AppCompatActivity {
                         Toast.makeText(IdentificationActivity.this, " Logged in Successfully", Toast.LENGTH_SHORT).show();
                         LogInRes user = new Gson().fromJson(String.valueOf(jsonObject), LogInRes.class);
 
-                        saveUser(user.getUser().getId(), user.getUser().getRole(), user.getUser().getFirstName(), user.getUser().getLastName(), user.getUser().getEmail(), user.getUser().getUsername());
+//                        saveUser(user.getUser().getId(), user.getUser().getRole(), user.getUser().getFirstName(), user.getUser().getLastName(), user.getUser().getEmail(), user.getUser().getUsername());
                         SharedPreferences sharedPreferences = getSharedPreferences("identification", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean("identified", true);
                         editor.putString("token", user.getToken());
+
+                        editor.putString("_id", user.getUser().getId());
+                        editor.putString("firstName", user.getUser().getFirstName());
+                        editor.putString("lastName", user.getUser().getLastName());
+                        editor.putString("email", user.getUser().getEmail());
+                        editor.putString("username", user.getUser().getUsername());
+
                         editor.apply();
-//                        editor.commit();
+
                         Toast.makeText(IdentificationActivity.this, "token " + user.getToken(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);

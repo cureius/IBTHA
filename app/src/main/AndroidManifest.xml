@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".app.MyApplication"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,10 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IBTHA"
         android:usesCleartextTraffic="true"
+        tools:ignore="Instantiatable"
         tools:targetApi="23">
-        <activity android:name=".views.ui.ProductActivity">
-
-        </activity>
         <activity
             android:name=".views.ui.SplashActivity"
             android:theme="@style/splash">
@@ -29,6 +28,8 @@
         <activity android:name=".onBoarding.IntroActivity" />
         <activity android:name=".views.ui.IdentificationActivity" />
         <activity android:name=".views.ui.MainActivity" />
+        <activity android:name=".views.ui.ProductActivity" />
+        <activity android:name=".views.ui.NavActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

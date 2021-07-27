@@ -1,5 +1,6 @@
 package com.freelearners.ibtha.views.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,11 +46,10 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_cart, container, false);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_cart, container, false);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -64,24 +64,19 @@ public class CartFragment extends Fragment {
         recyclerView.setAdapter(cartitemAdapter);
 //
         CartViewModel cartViewModel = ViewModelProviders.of(requireActivity()).get(CartViewModel.class);
-        cartViewModel.getTotalPayable(requireContext());
         cartViewModel.makeApiCall(requireContext());
-        cartViewModel.getItemCount().observe(getViewLifecycleOwner(), integer -> totalCalculate.setText("Total(" + String.valueOf(integer) + ")"));
+        cartViewModel.getItemCount().observe(getViewLifecycleOwner(), integer -> {
+            totalCalculate.setText("Total(" + String.valueOf(integer) + ")");
+            ((MainActivity) requireActivity()).bottomNavigation.setCount(3, String.valueOf(integer));
 
-
+        });
 //        cartViewModel.makeApiCall(requireActivity().getApplicationContext());
-
         cartViewModel.getCartItemListObserver().observe(getViewLifecycleOwner(), cartItems -> {
             if (cartItems != null) {
                 cartitemAdapter.setCartItems(cartItems);
             }
         });
-        cartViewModel.getPayable().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                totalPay.setText(String.valueOf(integer));
-            }
-        });
+        cartViewModel.getPayable().observe(getViewLifecycleOwner(), integer -> totalPay.setText(String.valueOf(integer)));
 
     }
 }

@@ -59,69 +59,7 @@ public class CartViewModel extends ViewModel {
                         Cart cart = new Gson().fromJson(String.valueOf(jsonObject), Cart.class);
                         Log.d(TAG, "onJSONResponse: " + cart.toString());
                         cartItemList.postValue(cart.getCartItems());
-
-                    }
-
-                    @Override
-                    public void onJSONArrayResponse(JSONArray jsonArray) {
-
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        Log.e(TAG, "onError: ", e);
-                        Toast.makeText(context, "fail to get cart", Toast.LENGTH_SHORT).show();
-                        cartItemList.postValue(null);
-
-                    }
-                });
-    }
-
-    public void getCartItemCount(Context context) {
-        SharedPreferences getSharedPreferences = context.getSharedPreferences("identification", MODE_PRIVATE);
-        String token = getSharedPreferences.getString("token", null);
-
-        new ServerClass().sendPOSTRequestToServerWithHeader(context,
-                null,
-                Constants.BASE_URL + "/api/user/getCartProducts",
-                token,
-                new ServerResponseCallback() {
-                    @Override
-                    public void onJSONResponse(JSONObject jsonObject) {
-                        Cart cart = new Gson().fromJson(String.valueOf(jsonObject), Cart.class);
-                        Log.d(TAG, "onJSONResponse: " + cart.toString());
                         count.postValue(cart.getCartItems().size());
-
-                    }
-
-                    @Override
-                    public void onJSONArrayResponse(JSONArray jsonArray) {
-
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        Log.e(TAG, "onError: ", e);
-                        Toast.makeText(context, "fail to get cart", Toast.LENGTH_SHORT).show();
-                        cartItemList.postValue(null);
-
-                    }
-                });
-    }
-
-    public void getTotalPayable(Context context) {
-        SharedPreferences getSharedPreferences = context.getSharedPreferences("identification", MODE_PRIVATE);
-        String token = getSharedPreferences.getString("token", null);
-
-        new ServerClass().sendPOSTRequestToServerWithHeader(context,
-                null,
-                Constants.BASE_URL + "/api/user/getCartProducts",
-                token,
-                new ServerResponseCallback() {
-                    @Override
-                    public void onJSONResponse(JSONObject jsonObject) {
-                        Cart cart = new Gson().fromJson(String.valueOf(jsonObject), Cart.class);
-                        Log.d(TAG, "onJSONResponse: " + cart.toString());
                         int price = 0;
                         for (int i = 0; i < cart.getCartItems().size(); i++) {
                             price  = price + cart.getCartItems().get(i).getProduct().getPrice() * cart.getCartItems().get(i).getQuantity();
@@ -139,13 +77,11 @@ public class CartViewModel extends ViewModel {
                     public void onError(Exception e) {
                         Log.e(TAG, "onError: ", e);
                         Toast.makeText(context, "fail to get cart", Toast.LENGTH_SHORT).show();
-                        totalPayable.postValue(null);
+                        cartItemList.postValue(null);
 
                     }
                 });
     }
-
-
     public void addItem(Context context, JSONObject cartItem){
         SharedPreferences getSharedPreferences = context.getSharedPreferences("identification", MODE_PRIVATE);
         String token = getSharedPreferences.getString("token", null);

@@ -6,12 +6,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.viewmodels.CartViewModel;
+import com.freelearners.ibtha.viewmodels.MainViewModel;
 import com.freelearners.ibtha.viewmodels.ProductViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,21 +23,24 @@ public class MainActivity extends AppCompatActivity {
     private final int ID_SEARCH = 2;
     private final int ID_CART = 3;
     private final int ID_ACCOUNT = 4;
-
+    public MeowBottomNavigation bottomNavigation;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MeowBottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
+        bottomNavigation = findViewById(R.id.bottom_navigation);
+        FragmentContainerView fragmentContainerView = findViewById(R.id.fragmentContainerView);
 
+
+        MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         ProductViewModel productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        productViewModel.makeApiCall(this);
-
         CartViewModel cartViewModel = ViewModelProviders.of(this).get(CartViewModel.class);
+
+        productViewModel.makeApiCall(this);
         cartViewModel.makeApiCall(this);
-        cartViewModel.getCartItemCount(this);
         cartViewModel.getItemCount().observe(this, integer -> bottomNavigation.setCount(ID_CART, String.valueOf(integer)));
+
 
         TextView appName = findViewById(R.id.toolbar_title);
         appName.setText("Indian Black Tea");
@@ -43,29 +49,68 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.add(new MeowBottomNavigation.Model(ID_CART, R.drawable.ic_outline_shopping_cart_24));
         bottomNavigation.add(new MeowBottomNavigation.Model(ID_ACCOUNT, R.drawable.ic_account));
 
-        bottomNavigation.show(ID_HOME, true);
+//        bottomNavigation.show(ID_HOME, true);
         replace(new ShopFragment());
+
+        mainViewModel.getTabLive().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                switch (integer) {
+                    case ID_HOME:
+//                        mainViewModel.setTab(1);
+                        bottomNavigation.show(ID_HOME, true);
+                        replace(new ShopFragment());
+                        break;
+
+                    case ID_SEARCH:
+//                        mainViewModel.setTab(2);
+                        bottomNavigation.show(ID_SEARCH, true);
+                        replace(new SearchFragment());
+                        break;
+
+                    case ID_CART:
+//                        mainViewModel.setTab(3);
+                        bottomNavigation.show(ID_CART, true);
+
+                        replace(new CartFragment());
+                        break;
+
+                    case ID_ACCOUNT:
+//                        mainViewModel.setTab(4);
+                        bottomNavigation.show(ID_ACCOUNT, true);
+                        replace(new ProfileFragment());
+                        break;
+
+                }
+            }
+        });
+
         bottomNavigation.setOnClickMenuListener(model -> {
             switch (model.getId()) {
                 case ID_HOME:
-                    replace(new ShopFragment());
+                    mainViewModel.setTab(1);
+//                    replace(new ShopFragment());
                     break;
 
                 case ID_SEARCH:
-                    replace(new SearchFragment());
+                    mainViewModel.setTab(2);
+//                    replace(new SearchFragment());
                     break;
 
                 case ID_CART:
-                    replace(new CartFragment());
+                    mainViewModel.setTab(3);
+//                    replace(new CartFragment());
                     break;
 
                 case ID_ACCOUNT:
-                    replace(new ProfileFragment());
+                    mainViewModel.setTab(4);
+//                    replace(new ProfileFragment());
                     break;
 
             }
             return null;
         });
+
 
 
     }
@@ -75,11 +120,4 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.home_frame_layout, fragment);
         fragmentTransaction.commit();
     }
-    public void addToCart() {
-
-//            CartViewModel cartViewModel = ViewModelProviders.of(this).get(CartViewModel.class);
-//            cartViewModel.addItem(this, jsonObject);
-//
-    }
-
 }

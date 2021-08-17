@@ -1,9 +1,11 @@
 package com.freelearners.ibtha.views.ui;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -62,25 +64,28 @@ public class SearchFragment extends Fragment {
         recyclerView.setAdapter(searchAdapter);
 
         ProductViewModel productViewModel = ViewModelProviders.of(requireActivity()).get(ProductViewModel.class);
-        productViewModel.getProductListObserver().observe(getViewLifecycleOwner(), productModels -> {
-            if (productModels != null){
-                searchAdapter.setProducts(productModels);
+//        productViewModel.getProductListObserver().observe(getViewLifecycleOwner(), productModels -> {
+//            if (productModels != null){
+        productModelArrayList = productViewModel.getProductListArray();
+        searchAdapter.setProducts(productModelArrayList);
 
-                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        return false;
-                    }
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-                        Toast.makeText(getContext(), newText, Toast.LENGTH_SHORT).show();
-                        searchAdapter.getFilter().filter(newText);
-                        return true;
-                    }
-                });
-
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//                Toast.makeText(getContext(), newText, Toast.LENGTH_SHORT).show();
+                searchAdapter.getFilter().filter(newText);
+                return false;
             }
         });
+
+
+//            }
+//        });
     }
 }

@@ -3,6 +3,7 @@ package com.freelearners.ibtha.viewmodels;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -22,13 +23,18 @@ import java.util.ArrayList;
 public class ProductViewModel extends ViewModel {
     private static final String TAG = "ProductViewModel";
     private final MutableLiveData<ArrayList<ProductModel>> productList;
+    private final ArrayList<ProductModel> productListArray;
 
     public ProductViewModel() {
         productList = new MutableLiveData<>();
+        productListArray = new ArrayList<>();
     }
 
     public MutableLiveData<ArrayList<ProductModel>> getProductListObserver() {
         return productList;
+    }
+    public ArrayList<ProductModel> getProductListArray() {
+        return productListArray;
     }
 
     public void makeApiCall(Context context) {
@@ -49,7 +55,7 @@ public class ProductViewModel extends ViewModel {
                         }.getType();
                         ArrayList<ProductModel> productModels = new Gson().fromJson(String.valueOf(jsonArray), productType);
                         productList.postValue(productModels);
-
+                        productListArray.addAll(productModels);
                     }
 
                     @Override

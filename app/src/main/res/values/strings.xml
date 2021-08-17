@@ -57,4 +57,15 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="enter_address_details">Enter Address Details</string>
+    <string name="address_long">We will deliver your order to your home address</string>
+    <string name="add_new_address">Add New Address</string>
+    <string name="submit">submit</string>
+    <string name="house_number_floor">House Number , Building name , Floor</string>
+    <string name="street_name">Street Name, Area, Colony</string>
+    <string name="pin">700049</string>
+    <string name="pin2">700050</string>
+    <string name="pin3">700060</string>
+    <string name="enter_pin_code">Enter PIN code</string>
+    <string name="checkout">CheckOut</string>
 </resources>

@@ -55,29 +55,21 @@ public class MainActivity extends AppCompatActivity {
         mainViewModel.getTabLive().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
+                bottomNavigation.show(integer, true);
                 switch (integer) {
                     case ID_HOME:
-//                        mainViewModel.setTab(1);
-                        bottomNavigation.show(ID_HOME, true);
                         replace(new ShopFragment());
                         break;
 
                     case ID_SEARCH:
-//                        mainViewModel.setTab(2);
-                        bottomNavigation.show(ID_SEARCH, true);
                         replace(new SearchFragment());
                         break;
 
                     case ID_CART:
-//                        mainViewModel.setTab(3);
-                        bottomNavigation.show(ID_CART, true);
-
                         replace(new CartFragment());
                         break;
 
                     case ID_ACCOUNT:
-//                        mainViewModel.setTab(4);
-                        bottomNavigation.show(ID_ACCOUNT, true);
                         replace(new ProfileFragment());
                         break;
 
@@ -86,33 +78,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottomNavigation.setOnClickMenuListener(model -> {
-            switch (model.getId()) {
-                case ID_HOME:
-                    mainViewModel.setTab(1);
-//                    replace(new ShopFragment());
-                    break;
-
-                case ID_SEARCH:
-                    mainViewModel.setTab(2);
-//                    replace(new SearchFragment());
-                    break;
-
-                case ID_CART:
-                    mainViewModel.setTab(3);
-//                    replace(new CartFragment());
-                    break;
-
-                case ID_ACCOUNT:
-                    mainViewModel.setTab(4);
-//                    replace(new ProfileFragment());
-                    break;
-
-            }
+            mainViewModel.setTab(model.getId());
             return null;
         });
-
-
-
     }
 
     private void replace(Fragment fragment) {

@@ -27,4 +27,12 @@
     <style name="primary_text">
         <item name="android:textColor">@color/projectLightPrimary</item>
     </style>
+
+    <style name="toast">
+        <item name="colorBackground">?android:attr/colorEdgeEffect</item>
+        <item name="textColor">?android:attr/colorSecondary</item>
+        <item name="iconLeft">@drawable/ic_outline_shopping_cart_24</item>
+        <item name="length">LONG</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
 </resources>

@@ -25,6 +25,7 @@ import com.freelearners.ibtha.views.ui.ProductActivity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
 
@@ -38,9 +39,8 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public SearchAdapter(ArrayList<ProductModel> products, Context context) {
         this.products = products;
-        productsBackup = new ArrayList<>(products);
         this.context = context;
-
+        this.productsBackup = products;
     }
 
     public void setProducts(ArrayList<ProductModel> products) {
@@ -61,8 +61,8 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (keyword.toString().isEmpty()){
                 filteredData.addAll(productsBackup);
             }else {
-                for (ProductModel obj : productsBackup){
-                    if (obj.getName().toString().toLowerCase().contains(keyword.toString().toLowerCase()))
+                for (ProductModel obj : products){
+                    if (obj.getName().toString().toLowerCase().contains(keyword.toString().toLowerCase().trim()))
                         filteredData.add(obj);
                 }
             }
@@ -74,7 +74,8 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             products.clear();
-            products.addAll((ArrayList<ProductModel>)results.values);
+            products.addAll((ArrayList)results.values);
+            Log.d(TAG, "publishResults: "+ results.values.toString());
             notifyDataSetChanged();
         }
     };
@@ -137,7 +138,6 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         return 0;
     }
-
 
     @Override
     public int getItemViewType(int position) {

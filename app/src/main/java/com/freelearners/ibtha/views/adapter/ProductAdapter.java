@@ -22,7 +22,9 @@ import com.freelearners.ibtha.database.remote.server.Constants;
 import com.freelearners.ibtha.database.remote.server.data.ServerClass;
 import com.freelearners.ibtha.database.remote.server.data.ServerResponseCallback;
 import com.freelearners.ibtha.model.ProductModel;
+import com.freelearners.ibtha.repository.CartRepository;
 import com.freelearners.ibtha.views.ui.ProductActivity;
+import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -34,7 +36,7 @@ import java.util.ArrayList;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private static final int TYPE_FOOTER = 1;
@@ -82,6 +84,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else if (holder instanceof ProductAdapter.ItemViewHolder) {
             ProductAdapter.ItemViewHolder itemViewHolder = (ProductAdapter.ItemViewHolder) holder;
 
+            CartRepository cartRepository = new CartRepository();
             JSONObject jsonObject = new JSONObject();
             JSONObject cartItems = new JSONObject();
             try {
@@ -121,27 +124,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 context.startActivity(intent);
             });
             itemViewHolder.add.setOnClickListener(v -> {
-                SharedPreferences getSharedPreferences = context.getSharedPreferences("identification", MODE_PRIVATE);
-                String token = getSharedPreferences.getString("token", null);
-
-                new ServerClass().sendPOSTRequestToServerWithHeader(context, jsonObject, Constants.BASE_URL + "/api/user/cart/addtocart", token, new ServerResponseCallback() {
-                    @Override
-                    public void onJSONResponse(JSONObject jsonObject) {
-                        Toast.makeText(context, "added to cart" + jsonObject.toString(), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onJSONArrayResponse(JSONArray jsonArray) {
-                        Toast.makeText(context, "Item added to your cart", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        Toast.makeText(context, "fail to add to cart", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                cartRepository.addToCart(context, jsonObject);
             });
         }
     }
@@ -153,7 +136,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
         return 0;
     }
-
 
 
     @Override

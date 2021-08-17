@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/order_nav"
+    app:startDestination="@id/checkOutFragment">
+
+    <fragment
+        android:id="@+id/addAddressFragment"
+        android:name="com.freelearners.ibtha.views.ui.AddAddressFragment"
+        android:label="fragment_add_address"
+        tools:layout="@layout/fragment_add_address" />
+    <fragment
+        android:id="@+id/checkOutFragment"
+        android:name="com.freelearners.ibtha.views.ui.CheckOutFragment"
+        android:label="fragment_check_out"
+        tools:layout="@layout/fragment_check_out" />
+</navigation>

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.onBoarding.IntroActivity;
+import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 public class SplashActivity extends AppCompatActivity {
 

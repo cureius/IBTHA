@@ -29,11 +29,13 @@
         <activity android:name=".views.ui.IdentificationActivity" />
         <activity android:name=".views.ui.MainActivity" />
         <activity android:name=".views.ui.ProductActivity" />
-        <activity android:name=".views.ui.NavActivity"/>
+        <activity android:name=".views.ui.NavActivity" />
+        <activity android:name=".views.ui.OrderActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

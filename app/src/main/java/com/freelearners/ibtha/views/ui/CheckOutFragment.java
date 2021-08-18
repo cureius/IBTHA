@@ -1,6 +1,11 @@
 package com.freelearners.ibtha.views.ui;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,10 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.model.CartItem;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 public class CheckOutFragment extends Fragment {
 
     public ArrayList<CartItem> cartItemArrayList = new ArrayList<>();
+    private TextView totalItem, subTotal, deliveryFee, totalPrice;
+    private Button checkout;
 
     public CheckOutFragment() {
         // Required empty public constructor
@@ -46,6 +49,14 @@ public class CheckOutFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        totalItem = view.findViewById(R.id.item_checkout);
+        subTotal = view.findViewById(R.id.sub_total_checkout);
+        deliveryFee = view.findViewById(R.id.delivery_fee_checkout);
+        totalPrice = view.findViewById(R.id.total_price_checkout);
+        checkout = view.findViewById(R.id.checkout_btn);
+        TextView back = view.findViewById(R.id.toolbar_back_tv);
+
+        back.setOnClickListener(v -> requireActivity().onBackPressed());
         CartItemAdapter cartitemAdapter = new CartItemAdapter(cartItemArrayList, getContext());
         RecyclerView recyclerView = view.findViewById(R.id.checkout_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -58,5 +69,11 @@ public class CheckOutFragment extends Fragment {
                 cartitemAdapter.setCartItems(cartItems);
             }
         });
+        cartViewModel.getItemCount().observe(getViewLifecycleOwner(), integer -> totalItem.setText(String.valueOf(integer)));
+        cartViewModel.getPayable().observe(getViewLifecycleOwner(), integer -> {
+            subTotal.setText(String.valueOf(integer));
+            totalPrice.setText(String.valueOf(integer));
+        });
+
     }
 }

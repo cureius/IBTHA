@@ -104,4 +104,17 @@ public class CartViewModel extends ViewModel {
             }
         });
     }
+    public void deleteItem(int position) throws InterruptedException {
+//        for (int i = 0; i < 10; i++) {
+//            Thread.sleep(1000);
+//            System.out.println(i);
+//        }
+//        ArrayList<CartItem> cart;
+//        cart = cartItemList.getValue();
+//        assert cart != null;
+//        cart.remove(position);
+//        cartItemList.postValue(cart);
+    }
+
+
 }

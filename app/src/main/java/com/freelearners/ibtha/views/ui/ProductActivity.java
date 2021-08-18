@@ -32,7 +32,7 @@ public class ProductActivity extends AppCompatActivity {
     private TabLayout viewpagerIndicator;
     private ViewPager productDetailsViewpager;
     private TabLayout productDetailsTabLayout;
-    private TextView productName, productPrice, units, productCategory, productDescription;
+    private TextView productName, productPrice, units, productCategory, back, productDescription;
     private ImageButton plus, minus, add;
     private Button buyNow;
     private final String TAG = ProductActivity.class.getName();
@@ -56,6 +56,7 @@ public class ProductActivity extends AppCompatActivity {
         productPrice = findViewById(R.id.product_price);
         units = findViewById(R.id.selected_units);
         productCategory = findViewById(R.id.toolbar_title);
+        back = findViewById(R.id.toolbar_back_tv);
         productDescription = findViewById(R.id.product_description);
         plus = findViewById(R.id.unitPlusBtn);
         minus = findViewById(R.id.unitMinusBtn);
@@ -74,6 +75,12 @@ public class ProductActivity extends AppCompatActivity {
         productName.setText(product.getName());
         productPrice.setText(Integer.toString(product.getPrice()));
         productCategory.setText(product.getCategory().getName());
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductActivity.super.onBackPressed();
+            }
+        });
 
         productDetailsViewpager.setAdapter(new ProductDetailsAdapter(getSupportFragmentManager(), productDetailsTabLayout.getTabCount(), product.getDescription()));
         productDetailsViewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(productDetailsTabLayout));

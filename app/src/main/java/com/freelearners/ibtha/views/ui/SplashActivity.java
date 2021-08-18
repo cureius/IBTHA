@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.onBoarding.IntroActivity;
+import com.freelearners.ibtha.viewmodels.ProductViewModel;
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 public class SplashActivity extends AppCompatActivity {
@@ -27,6 +29,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+        ProductViewModel productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+        productViewModel.makeApiCall(this);
 
 //        hooks
         logo=findViewById(R.id.sp_logo);
@@ -44,7 +48,6 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             SharedPreferences getSharedPreferences = getSharedPreferences("identification", MODE_PRIVATE);
             boolean loggedIn = getSharedPreferences.getBoolean("identified", false);
-
 
             if (loggedIn){
                 Toast.makeText(SplashActivity.this, "loggedIn", Toast.LENGTH_SHORT).show();

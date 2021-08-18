@@ -68,4 +68,8 @@
     <string name="pin3">700060</string>
     <string name="enter_pin_code">Enter PIN code</string>
     <string name="checkout">CheckOut</string>
+    <string name="sub_total_price">Sub-total Price</string>
+    <string name="delivery_fee">Delivery Fee</string>
+    <string name="total_price">Total Price</string>
+    <string name="total_items">Total Items</string>
 </resources>

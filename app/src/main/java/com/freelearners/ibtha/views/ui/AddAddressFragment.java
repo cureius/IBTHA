@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.freelearners.ibtha.R;
 
@@ -36,6 +37,8 @@ public class AddAddressFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        TextView back = view.findViewById(R.id.toolbar_back_tv);
 
+        back.setOnClickListener(v -> requireActivity().onBackPressed());
     }
 }

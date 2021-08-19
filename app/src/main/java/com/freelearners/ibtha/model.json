@@ -15,52 +15,51 @@
 },
 
 {
-"addressId": "611d202646299300154b7354",
-"totalAmount": 200,
-"items":[
-{
-"productId": "60cf43cea6568a2bf33c8bf3",
-"payablePrice": 2000,
-"purchasedQty": 1
-}
-],
-"paymentStatus": "pending",
-"paymentType": "cod"
+  "addressId": "611d202646299300154b7354",
+  "totalAmount": 200,
+  "items": [
+    {
+      "productId": "60cf43cea6568a2bf33c8bf3",
+      "payablePrice": 2000,
+      "purchasedQty": 1
+    }
+  ],
+  "paymentStatus": "pending",
+  "paymentType": "cod"
 },
 
-
 {
-"userAddress": {
-"_id": "611cee7decfe801f6307d476",
-"user": "60e95305426ce020a16b4776",
-"__v": 0,
-"address": [
-{
-"_id": "611cee7d1122a90015bd7540",
-"name": "Souraj pal",
-"mobileNumber": "858944249",
-"pinCode": "700049",
-"locality": "Belgharia",
-"address": "Alipure Main Road",
-"cityDistrictTown": "kolkata",
-"landmark": "club",
-"alternatePhone": "9874992800",
-"addressType": "home"
-},
-{
-"_id": "611cee9f1122a90015bd7542",
-"name": "Susanta pal",
-"mobileNumber": "858944249",
-"pinCode": "700049",
-"locality": "Belgharia",
-"address": "Alipure Main Road",
-"cityDistrictTown": "kolkata",
-"landmark": "club",
-"alternatePhone": "9874992800",
-"addressType": "home"
-}
-],
-"createdAt": "2021-08-18T11:26:53.558Z",
-"updatedAt": "2021-08-18T11:27:27.710Z"
-}
+  "userAddress": {
+    "_id": "611cee7decfe801f6307d476",
+    "user": "60e95305426ce020a16b4776",
+    "__v": 0,
+    "address": [
+      {
+        "_id": "611cee7d1122a90015bd7540",
+        "name": "Souraj pal",
+        "mobileNumber": "858944249",
+        "pinCode": "700049",
+        "locality": "Belgharia",
+        "address": "Alipure Main Road",
+        "cityDistrictTown": "kolkata",
+        "landmark": "club",
+        "alternatePhone": "9874992800",
+        "addressType": "home"
+      },
+      {
+        "_id": "611cee9f1122a90015bd7542",
+        "name": "Susanta pal",
+        "mobileNumber": "858944249",
+        "pinCode": "700049",
+        "locality": "Belgharia",
+        "address": "Alipure Main Road",
+        "cityDistrictTown": "kolkata",
+        "landmark": "club",
+        "alternatePhone": "9874992800",
+        "addressType": "home"
+      }
+    ],
+    "createdAt": "2021-08-18T11:26:53.558Z",
+    "updatedAt": "2021-08-18T11:27:27.710Z"
+  }
 }

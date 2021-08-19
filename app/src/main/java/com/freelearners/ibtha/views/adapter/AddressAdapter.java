@@ -1,9 +1,13 @@
 package com.freelearners.ibtha.views.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.model.Address;
+import com.freelearners.ibtha.views.ui.CheckOutActivity;
+import com.freelearners.ibtha.views.ui.ProductActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +26,7 @@ public class AddressAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private static final int TYPE_FOOTER = 1;
     private static final int TYPE_ITEM = 2;
-
+    private static final String TAG = "AddressAdapter";
     ArrayList<Address> addresses;
     Context context;
 
@@ -65,6 +71,13 @@ public class AddressAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             itemViewHolder.address.setText(addresses.get(position).getAddress()+", "+addresses.get(position).getLandmark()+", "+addresses.get(position).getLocality()+", "+addresses.get(position).getCityDistrictTown()+", "+addresses.get(position).getAddressType());
             itemViewHolder.pin.setText(addresses.get(position).getPinCode());
 
+            itemViewHolder.deliverHere.setOnClickListener(v -> {
+                Log.d(TAG, "onBindViewHolder: " + "Item clicked " + addresses.get(position).toString());
+                Intent intent = new Intent(context, CheckOutActivity.class);
+                intent.putExtra("address", (Parcelable) addresses.get(position));
+                context.startActivity(intent);
+            });
+
         }
     }
 
@@ -99,6 +112,7 @@ public class AddressAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public TextView mobileNumber;
         public TextView address;
         public TextView pin;
+        public Button deliverHere;
 
         public ItemViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -107,6 +121,7 @@ public class AddressAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mobileNumber = itemView.findViewById(R.id.mobile_number);
             address = itemView.findViewById(R.id.address_full);
             pin = itemView.findViewById(R.id.pin_address);
+            deliverHere = itemView.findViewById(R.id.deliver_here);
         }
     }
 }

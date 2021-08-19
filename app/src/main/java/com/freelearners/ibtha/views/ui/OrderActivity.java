@@ -83,7 +83,7 @@ public class OrderActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "JSON Exception", Toast.LENGTH_SHORT).show();
         }
         addressRepository.addAddress(this, jsonObject);
-        setFragment(new CheckOutFragment());
+        setFragment(new AddressFragment());
 
     }
 }

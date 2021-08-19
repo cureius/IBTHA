@@ -17,6 +17,9 @@
         tools:ignore="Instantiatable"
         tools:targetApi="23">
         <activity
+            android:name=".views.ui.CheckOutActivity"
+            android:exported="true" />
+        <activity
             android:name=".views.ui.SplashActivity"
             android:theme="@style/splash">
             <intent-filter>
@@ -30,12 +33,11 @@
         <activity android:name=".views.ui.MainActivity" />
         <activity android:name=".views.ui.ProductActivity" />
         <activity android:name=".views.ui.NavActivity" />
-        <activity android:name=".views.ui.OrderActivity"/>
+        <activity android:name=".views.ui.OrderActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>

@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
         MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         ProductViewModel productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
         CartViewModel cartViewModel = ViewModelProviders.of(this).get(CartViewModel.class);
-        AddressViewModel addressViewModel = ViewModelProviders.of(this).get(AddressViewModel.class);
+//        AddressViewModel addressViewModel = ViewModelProviders.of(this).get(AddressViewModel.class);
 
         productViewModel.makeApiCall(this);
         cartViewModel.makeApiCall(this);
-        addressViewModel.makeApiCall(this);
+//        addressViewModel.makeApiCall(this);
         cartViewModel.getItemCount().observe(this, integer -> bottomNavigation.setCount(ID_CART, String.valueOf(integer)));
 
         TextView appName = findViewById(R.id.toolbar_title);

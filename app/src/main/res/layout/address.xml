@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Zip Code -"
+                android:text="Zip Code - "
                 app:layout_constraintStart_toStartOf="@+id/mobile_number"
                 app:layout_constraintTop_toBottomOf="@+id/address_full" />
 
@@ -76,7 +76,7 @@
                 app:layout_constraintTop_toTopOf="@+id/textView16" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/deliver_here"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
@@ -84,8 +84,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/button_bg"
-                android:text="Delever here"
-                android:textSize="10sp"
+                android:text="Deliver here"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,10 +1,13 @@
 package com.freelearners.ibtha.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 
 import java.util.List;
 
-public class Address {
+public class Address implements Parcelable {
     private String _id;
     private String name;
     private String mobileNumber;
@@ -15,6 +18,31 @@ public class Address {
     private String landmark;
     private String alternatePhone;
     private String addressType;
+
+    protected Address(Parcel in) {
+        _id = in.readString();
+        name = in.readString();
+        mobileNumber = in.readString();
+        pinCode = in.readString();
+        locality = in.readString();
+        address = in.readString();
+        cityDistrictTown = in.readString();
+        landmark = in.readString();
+        alternatePhone = in.readString();
+        addressType = in.readString();
+    }
+
+    public static final Creator<Address> CREATOR = new Creator<Address>() {
+        @Override
+        public Address createFromParcel(Parcel in) {
+            return new Address(in);
+        }
+
+        @Override
+        public Address[] newArray(int size) {
+            return new Address[size];
+        }
+    };
 
     public String get_id() {
         return _id;
@@ -111,5 +139,24 @@ public class Address {
                 ", alternatePhone='" + alternatePhone + '\'' +
                 ", addressType='" + addressType + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(_id);
+        dest.writeString(name);
+        dest.writeString(mobileNumber);
+        dest.writeString(pinCode);
+        dest.writeString(locality);
+        dest.writeString(address);
+        dest.writeString(cityDistrictTown);
+        dest.writeString(landmark);
+        dest.writeString(alternatePhone);
+        dest.writeString(addressType);
     }
 }

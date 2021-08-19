@@ -6,9 +6,12 @@
         <entry key="app/src/main/res/layout-land/fragment_check_out.xml" value="0.2194078947368421" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22335526315789472" />
         <entry key="app/src/main/res/layout/activity_order.xml" value="0.22335526315789472" />
+        <entry key="app/src/main/res/layout/address.xml" value="0.4495305164319249" />
         <entry key="app/src/main/res/layout/fragment_add_address.xml" value="0.22335526315789472" />
+        <entry key="app/src/main/res/layout/fragment_address.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.22335526315789472" />
         <entry key="app/src/main/res/layout/fragment_check_out.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_log_in.xml" value="0.22335526315789472" />
         <entry key="app/src/main/res/layout/tool_bar.xml" value="0.22335526315789472" />
       </map>
     </option>

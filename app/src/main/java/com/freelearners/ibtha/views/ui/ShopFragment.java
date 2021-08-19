@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.freelearners.ibtha.R;
 import com.freelearners.ibtha.model.ProductModel;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class ShopFragment extends Fragment {
     public ProductAdapter productAdapter;
     public ArrayList<ProductModel> productModelArrayList = new ArrayList<>();
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class ShopFragment extends Fragment {
 
         productAdapter = new ProductAdapter(productModelArrayList, getContext());
         RecyclerView recyclerView = view.findViewById(R.id.shop_recyclerview);
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
 //        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(productAdapter);
@@ -54,6 +57,17 @@ public class ShopFragment extends Fragment {
         productViewModel.getProductListObserver().observe(getViewLifecycleOwner(), productModels -> {
             if (productModels != null){
                 productAdapter.setProducts(productModels);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                
+//                ProductViewModel productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+                productViewModel.makeApiCall(getContext());
+
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

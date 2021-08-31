@@ -3,11 +3,13 @@ package com.freelearners.ibtha.views.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.freelearners.ibtha.R;
+import com.freelearners.ibtha.viewmodels.CartViewModel;
 
 public class CheckOutActivity extends AppCompatActivity {
     private FrameLayout frameLayout;

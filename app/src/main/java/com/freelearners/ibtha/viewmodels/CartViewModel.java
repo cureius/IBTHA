@@ -14,12 +14,14 @@ import com.freelearners.ibtha.model.CartItem;
 import com.freelearners.ibtha.database.remote.server.Constants;
 import com.freelearners.ibtha.database.remote.server.data.ServerClass;
 import com.freelearners.ibtha.database.remote.server.data.ServerResponseCallback;
+import com.freelearners.ibtha.model.Item;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -28,6 +30,7 @@ public class CartViewModel extends ViewModel {
     private final MutableLiveData<ArrayList<CartItem>> cartItemList;
     private final MutableLiveData<Integer> count;
     private final MutableLiveData<Integer> totalPayable;
+    private ArrayList<Item> itemList = new ArrayList<>();
 
     public CartViewModel() {
         count = new MutableLiveData<>();
@@ -56,14 +59,21 @@ public class CartViewModel extends ViewModel {
                 new ServerResponseCallback() {
                     @Override
                     public void onJSONResponse(JSONObject jsonObject) {
+                        ArrayList<Item> items = new ArrayList<>();
                         Cart cart = new Gson().fromJson(String.valueOf(jsonObject), Cart.class);
                         Log.d(TAG, "onJSONResponse: " + cart.toString());
                         cartItemList.postValue(cart.getCartItems());
                         count.postValue(cart.getCartItems().size());
                         int price = 0;
                         for (int i = 0; i < cart.getCartItems().size(); i++) {
+                            Item item = new Item();
+//                            item.setProductId(cart.getCartItems().get(i).getProduct().get_id() );
+//                            item.setPurchasedQty(cart.getCartItems().get(i).getProduct().getQuantity() );
+//                            item.setPayablePrice(cart.getCartItems().get(i).getProduct().getPrice()*cart.getCartItems().get(i).getProduct().getQuantity());
+//                            items.add(item);
                             price  = price + cart.getCartItems().get(i).getProduct().getPrice() * cart.getCartItems().get(i).getQuantity();
                         }
+                        itemList = items;
                         totalPayable.postValue(price);
 
                     }
@@ -115,6 +125,20 @@ public class CartViewModel extends ViewModel {
 //        cart.remove(position);
 //        cartItemList.postValue(cart);
     }
+    public ArrayList<Item> convertIntoItems(){
+        ArrayList<CartItem> cartItems = cartItemList.getValue();
+        ArrayList<Item> items = new ArrayList<>();
+        for (int i = 0; i < Objects.requireNonNull(cartItems).size(); i++) {
+            Item item = new Item();
+            CartItem cartItem = new CartItem();
+            cartItem = cartItems.get(i);
+            item.setProductId(cartItem.get_id());
+            item.setPurchasedQty(cartItem.getQuantity());
+            item.setPayablePrice(cartItem.getProduct().getPrice());
 
+            items.add(item);
+        }
+        return items;
+    }
 
 }

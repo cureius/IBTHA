@@ -113,6 +113,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 Glide.with(context)
                         .load(url)
+                        .centerCrop()
 //                .apply(RequestOptions.centerCropTransform())
                         .into(itemViewHolder.img);
             }

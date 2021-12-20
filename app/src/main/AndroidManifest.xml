@@ -15,13 +15,15 @@
         android:theme="@style/Theme.IBTHA"
         android:usesCleartextTraffic="true"
         tools:ignore="Instantiatable"
-        tools:targetApi="23">
+        tools:targetApi="23"
+        android:allowBackup="false">
         <activity
             android:name=".views.ui.CheckOutActivity"
             android:exported="true" />
         <activity
             android:name=".views.ui.SplashActivity"
-            android:theme="@style/splash">
+            android:theme="@style/splash"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -65,7 +65,7 @@ public class ProductActivity extends AppCompatActivity {
 
         List<String> productImages = new ArrayList<>();
         for (int i = 0; i < product.getProductPictures().size(); i++) {
-            productImages.add(product.getProductPictures().get(i).getImg());
+            productImages.add(product.getProductPictures().get(i).getData());
         }
 
         ProductImagesAdapter imagesAdapter = new ProductImagesAdapter(productImages, getApplicationContext());

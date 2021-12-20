@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
         ProductViewModel productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        productViewModel.makeApiCall(this);
+//        productViewModel.makeApiCall(this);
 
 //        hooks
         logo=findViewById(R.id.sp_logo);

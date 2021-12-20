@@ -3,16 +3,20 @@ package com.freelearners.ibtha.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import org.jetbrains.annotations.NotNull;
 
 public class ProductPicture implements Parcelable {
     String _id;
-    String img;
+    String data;
+    String contentType;
 
 
-    public ProductPicture(String _id, String img) {
+    public ProductPicture(String _id, String data, String contentType) {
         this._id = _id;
-        this.img = img;
+        this.data = data;
+        this.contentType = contentType;
     }
 
     public ProductPicture() {
@@ -20,7 +24,8 @@ public class ProductPicture implements Parcelable {
 
     protected ProductPicture(Parcel in) {
         _id = in.readString();
-        img = in.readString();
+        data = in.readString();
+        contentType = in.readString();
     }
 
     public static final Creator<ProductPicture> CREATOR = new Creator<ProductPicture>() {
@@ -43,20 +48,29 @@ public class ProductPicture implements Parcelable {
         this._id = _id;
     }
 
-    public String getImg() {
-        return img;
+    public String getData() {
+        return data;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    @NotNull
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    @NonNull
     @Override
     public String toString() {
-        return "productPicture{" +
+        return "ProductPicture{" +
                 "_id='" + _id + '\'' +
-                ", img='" + img + '\'' +
+                ", data='" + data + '\'' +
+                ", contentType='" + contentType + '\'' +
                 '}';
     }
 
@@ -68,6 +82,7 @@ public class ProductPicture implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(_id);
-        dest.writeString(img);
+        dest.writeString(data);
+        dest.writeString(contentType);
     }
 }

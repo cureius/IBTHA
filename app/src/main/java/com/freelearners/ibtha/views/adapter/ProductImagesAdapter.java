@@ -1,6 +1,10 @@
 package com.freelearners.ibtha.views.adapter;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -32,8 +36,18 @@ public class ProductImagesAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull @NotNull ViewGroup container, int position) {
         ImageView productImage = new ImageView(container.getContext());
-        url = Constants.BASE_URL+"/public/"+productImages.get(position);
-        Glide.with(context).load(url).into(productImage);
+
+        if (!productImages.get(position).isEmpty()) {
+            String url;
+            url = productImages.get(position);
+            Log.d(TAG, "onBindViewHolder: " + url);
+            byte[] decodedString = Base64.decode(url, Base64.DEFAULT);
+            Glide.with(context)
+                    .asBitmap()
+                    .load(decodedString)
+                    .centerCrop()
+                    .into(productImage);
+        }
         container.addView(productImage,0);
         return productImage;
     }

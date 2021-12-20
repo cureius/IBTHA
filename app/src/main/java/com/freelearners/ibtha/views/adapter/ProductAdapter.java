@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,15 +109,15 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             itemViewHolder.unit.setText(R.string.unit_gm);
             itemViewHolder.price.setText(Integer.toString(products.get(position).getPrice()));
 
-            if (products.get(position).getProductPictures().get(0).getImg() != null) {
+            if (products.get(position).getProductPictures().get(0).getData() != null) {
                 String url;
-                url = Constants.BASE_URL + "/public/" + products.get(position).getProductPictures().get(0).getImg();
+                url = products.get(position).getProductPictures().get(0).getData();
                 Log.d(TAG, "onBindViewHolder: " + url);
-
+                byte[] decodedString = Base64.decode(url, Base64.DEFAULT);
                 Glide.with(context)
-                        .load(url)
+                        .asBitmap()
+                        .load(decodedString)
                         .centerCrop()
-//                .apply(RequestOptions.centerCropTransform())
                         .into(itemViewHolder.img);
             }
 

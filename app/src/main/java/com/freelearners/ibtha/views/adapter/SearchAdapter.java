@@ -3,6 +3,7 @@ package com.freelearners.ibtha.views.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,14 +112,15 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemViewHolder.unit.setText(R.string.unit_gm);
             itemViewHolder.price.setText(Integer.toString(products.get(position).getPrice()));
 
-            if (products.get(position).getProductPictures().get(0).getImg() != null) {
-                String url = "";
-                url = Constants.BASE_URL + "/public/" + products.get(position).getProductPictures().get(0).getImg();
+            if (products.get(position).getProductPictures().get(0).getData() != null) {
+                String url;
+                url = products.get(position).getProductPictures().get(0).getData();
                 Log.d(TAG, "onBindViewHolder: " + url);
-
+                byte[] decodedString = Base64.decode(url, Base64.DEFAULT);
                 Glide.with(context)
-                        .load(url)
-//                .apply(RequestOptions.centerCropTransform())
+                        .asBitmap()
+                        .load(decodedString)
+                        .centerCrop()
                         .into(itemViewHolder.img);
             }
 
